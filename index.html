@@ -81,6 +81,37 @@
 
       <div id="message" class="message"></div>
 
+      <div id="findForm" style="display:none; margin-top:20px;">
+
+  <label><strong>👤 Twój nick</strong></label><br>
+  <input
+    id="finderName"
+    type="text"
+    placeholder="Opcjonalnie"
+    style="width:100%;padding:12px;margin-top:6px;margin-bottom:15px;border-radius:10px;border:1px solid #ccc;">
+
+  <label><strong>📍 Miejsce znalezienia</strong></label><br>
+  <input
+    id="placeName"
+    type="text"
+    readonly
+    style="width:100%;padding:12px;margin-top:6px;margin-bottom:15px;border-radius:10px;border:1px solid #ccc;background:#eee;">
+
+  <label><strong>📝 Komentarz</strong></label><br>
+  <textarea
+    id="comment"
+    rows="4"
+    placeholder="Napisz kilka słów..."
+    style="width:100%;padding:12px;margin-top:6px;border-radius:10px;border:1px solid #ccc;"></textarea>
+
+  <button
+    class="button"
+    onclick="saveFinding()">
+    ❤️ Wyślij zgłoszenie
+  </button>
+
+</div>
+
       <div class="rules">
         Nie zatrzymuj mnie na zawsze.<br>
         Zrób zdjęcie, zgłoś moje miejsce i przekaż mnie dalej ❤️
