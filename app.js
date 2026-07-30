@@ -269,7 +269,7 @@ const editedPlaceName = document
         finder_name: finderName || "Anonimowy podróżnik",
         latitude: currentLocation.latitude,
         longitude: currentLocation.longitude,
-        place_name: currentLocation.placeName,
+        place_name: editedPlaceName || currentLocation.placeName,
         comment: comment || null,
         photo_url: photoUrl,
         location_accuracy: currentLocation.accuracy,
