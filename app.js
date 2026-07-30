@@ -377,5 +377,50 @@ async function loadTravelHistory() {
       "Nie udało się pobrać historii podróży.";
   }
 }
+async function loadStatistics() {
+  const placesElement = document.getElementById("placesCount");
+  const findersElement = document.getElementById("findersCount");
 
+  if (!placesElement || !findersElement) {
+    return;
+  }
+
+  if (!window.supabaseClient) {
+    return;
+  }
+
+  try {
+    const { data, error } = await window.supabaseClient
+      .from("sightings")
+      .select("place_name, finder_name")
+      .eq("stone_code", "KT-000001")
+      .eq("moderation_status", "approved");
+
+    if (error) {
+      throw error;
+    }
+
+    const uniquePlaces = new Set(
+      data
+        .map(function (finding) {
+          return finding.place_name;
+        })
+        .filter(Boolean)
+    );
+
+    const uniqueFinders = new Set(
+      data
+        .map(function (finding) {
+          return finding.finder_name;
+        })
+        .filter(Boolean)
+    );
+
+    placesElement.textContent = uniquePlaces.size;
+    findersElement.textContent = uniqueFinders.size;
+  } catch (error) {
+    console.error("Błąd pobierania statystyk:", error);
+  }
+}
 loadTravelHistory();
+loadStatistics();
