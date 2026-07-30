@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>KamyczkowyTrip – Stefan</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f1e8;
+      color: #252525;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 520px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .brand {
+      text-align: center;
+      font-weight: bold;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+    }
+
+    .stone {
+      text-align: center;
+      font-size: 74px;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0;
+      font-size: 38px;
+    }
+
+    .number {
+      text-align: center;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.5;
+      margin: 24px 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .stat {
+      background: #f6f6f6;
+      border-radius: 16px;
+      padding: 16px 10px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 17px;
+      margin-top: 18px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #257a4b;
+      color: white;
+    }
+
+    .message {
+      display: none;
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 14px;
+      background: #eef7f1;
+      line-height: 1.5;
+    }
+
+    .rules {
+      margin-top: 22px;
+      text-align: center;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 22px;
+      color: #777;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <div class="brand">🪨 KamyczkowyTrip</div>
+
+    <section class="card">
+
+      <div class="stone">🪨</div>
+
+      <h1>Stefan</h1>
+
+      <div class="number">
+        Paszport: KT-000001
+      </div>
+
+      <p class="intro">
+        Cześć! Jestem podróżującym kamyczkiem.
+        Pomóż mi odwiedzić jak najwięcej miejsc w Polsce.
+      </p>
+
+      <div class="stats">
+
+        <div class="stat">
+          <strong>0</strong>
+          miejsc
+        </div>
+
+        <div class="stat">
+          <strong>0 km</strong>
+          podróży
+        </div>
+
+        <div class="stat">
+          <strong>0</strong>
+          znalazców
+        </div>
+
+        <div class="stat">
+          <strong>0</strong>
+          zdjęć
+        </div>
+
+      </div>
+
+      <button class="button" onclick="testLocation()">
+        📍 Znalazłem Stefana
+      </button>
+
+      <div id="message" class="message"></div>
+
+      <div class="rules">
+        Nie zatrzymuj mnie na zawsze.<br>
+        Zrób zdjęcie, zgłoś moje miejsce i przekaż mnie dalej ❤️
+      </div>
+
+    </section>
+
+    <footer>
+      Pierwsza wersja testowa KamyczkowyTrip
+    </footer>
+
+  </main>
+
+  <script>
+    function showMessage(text) {
+      const message = document.getElementById("message");
+      message.textContent = text;
+      message.style.display = "block";
+    }
+
+    function testLocation() {
+      if (!navigator.geolocation) {
+        showMessage(
+          "Ta przeglądarka nie obsługuje pobierania lokalizacji."
+        );
+        return;
+      }
+
+      showMessage("Pobieram lokalizację telefonu…");
+
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          const latitude = position.coords.latitude.toFixed(5);
+          const longitude = position.coords.longitude.toFixed(5);
+
+          showMessage(
+            "Lokalizacja działa ✅ Współrzędne testowe: " +
+            latitude + ", " + longitude
+          );
+        },
+        function(error) {
+          if (error.code === 1) {
+            showMessage(
+              "Odmówiono dostępu do lokalizacji. Później dodamy możliwość ręcznego wpisania miejscowości."
+            );
+          } else {
+            showMessage(
+              "Nie udało się pobrać lokalizacji. Włącz GPS i spróbuj ponownie."
+            );
+          }
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0
+        }
+      );
+    }
+  </script>
+</body>
+</html>
