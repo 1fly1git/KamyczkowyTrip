@@ -269,7 +269,7 @@ async function saveFinding() {
       .from("sightings")
       .insert({
         stone_code: "KT-000001",
-        finder_name: finderName || null,
+        finder_name: finderName || "Anonimowy podróżnik",
         latitude: currentLocation.latitude,
         longitude: currentLocation.longitude,
         place_name: currentLocation.placeName,
