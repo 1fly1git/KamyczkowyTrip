@@ -1,25 +1,12 @@
-const SUPABASE_URL = "TU_WKLEJ_ADRES_PROJEKTU";
-const SUPABASE_PUBLISHABLE_KEY = "TU_WKLEJ_PUBLISHABLE_KEY";
+const SUPABASE_URL =
+  "https://wouqjbdjuhxysdocfxww.supabase.co";
 
-window.supabaseClient = null;
+const SUPABASE_PUBLISHABLE_KEY =
+  "TU_WKLEJ_CAŁY_PUBLISHABLE_KEY";
 
 try {
   if (!window.supabase) {
     throw new Error("Biblioteka Supabase nie została załadowana.");
-  }
-
-  if (
-    !SUPABASE_URL.startsWith("https://") ||
-    SUPABASE_URL.includes("TU_WKLEJ")
-  ) {
-    throw new Error("Niepoprawny adres projektu Supabase.");
-  }
-
-  if (
-    !SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_") ||
-    SUPABASE_PUBLISHABLE_KEY.includes("TU_WKLEJ")
-  ) {
-    throw new Error("Niepoprawny publishable key.");
   }
 
   window.supabaseClient = window.supabase.createClient(
@@ -27,7 +14,8 @@ try {
     SUPABASE_PUBLISHABLE_KEY
   );
 
-  console.log("Supabase został uruchomiony.");
+  console.log("Supabase uruchomiony poprawnie.");
 } catch (error) {
-  console.error("Błąd konfiguracji Supabase:", error);
+  window.supabaseClient = null;
+  console.error("Błąd uruchamiania Supabase:", error);
 }
