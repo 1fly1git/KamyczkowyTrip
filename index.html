@@ -122,6 +122,7 @@
       font-size: 13px;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -172,6 +173,11 @@
         📍 Znalazłem Stefana
       </button>
 
+
+      <button class="button" onclick="testSupabaseConnection()">
+  🔌 Sprawdź połączenie z bazą
+      </button>
+
       <div id="message" class="message"></div>
 
       <div class="rules">
@@ -188,6 +194,34 @@
   </main>
 
 <script>
+  const SUPABASE_URL = https://wouqjbdjuhxysdocfxww.supabase.co/rest/v1/ ;
+const SUPABASE_PUBLISHABLE_KEY = sb_publishable_H3ctXbWRj6B-02n0Cy1g0Q_CiTPYmUC ;
+async function testSupabaseConnection() {
+  const { data, error } = await supabaseClient
+    .from("stones")
+    .select("*")
+    .limit(1);
+
+  if (error) {
+    console.error("Błąd Supabase:", error);
+    showMessage(
+      "Połączenie z Supabase nie działa jeszcze.\n\n" +
+      error.message
+    );
+    return;
+  }
+
+  console.log("Supabase działa:", data);
+
+  showMessage(
+    "Połączenie z Supabase działa ✅\n" +
+    "Tabela stones jest dostępna."
+  );
+}
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
   function showMessage(text) {
     const message = document.getElementById("message");
     message.textContent = text;
