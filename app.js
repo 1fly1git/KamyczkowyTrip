@@ -167,3 +167,28 @@ document.getElementById("placeName").value = locationText;
     }
   );
 }
+
+async function saveFinding() {
+
+  const nick =
+    document.getElementById("finderName").value;
+
+  const comment =
+    document.getElementById("comment").value;
+
+  const place =
+    document.getElementById("placeName").value;
+
+  showMessage(
+`✅ Formularz działa!
+
+Nick: ${nick || "Anonimowy podróżnik"}
+
+Miejsce:
+${place}
+
+Komentarz:
+${comment || "(brak)"}`);
+}
+
+
