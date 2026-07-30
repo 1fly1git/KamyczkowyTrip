@@ -188,7 +188,7 @@ document.getElementById("findForm").style.display = "block";
   );
 }
 async function saveFinding() {
-  alert("saveFinding działa");
+  
   if (!window.supabaseClient) {
     showMessage("Brak połączenia z Supabase.");
     return;
@@ -231,9 +231,9 @@ async function saveFinding() {
   showMessage("Zapisuję zgłoszenie…");
 
   try {
-    alert("wchodzę do try");
+    
     if (photoFile) {
-      alert("mam zdjęcie, zaczynam upload");
+      
       const formData = new FormData();
 
       formData.append("photo", photoFile);
@@ -246,11 +246,11 @@ async function saveFinding() {
           body: formData
         }
       );
-      alert("serwer odpowiedział");
+      
 
       const uploadResult =
         await uploadResponse.json();
-      alert(JSON.stringify(uploadResult));
+      
 
       if (
         !uploadResponse.ok ||
