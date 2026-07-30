@@ -187,18 +187,12 @@
 
   </main>
 
-  <script>
-    function showMessage(text) {
-      const message = document.getElementById("message");
-      message.textContent = text;
-      message.style.display = "block";
-    }
-
 <script>
   function showMessage(text) {
     const message = document.getElementById("message");
     message.textContent = text;
     message.style.display = "block";
+    message.style.whiteSpace = "pre-line";
   }
 
   function getPlaceName(address) {
@@ -206,6 +200,8 @@
       address.tourism ||
       address.attraction ||
       address.amenity ||
+      address.neighbourhood ||
+      address.suburb ||
       address.village ||
       address.town ||
       address.city ||
@@ -282,8 +278,10 @@
             longitude.toFixed(5)
           );
         } catch (error) {
+          console.error(error);
+
           showMessage(
-            "GPS działa, ale nie udało się rozpoznać nazwy miejsca.\n" +
+            "GPS działa, ale nie udało się rozpoznać nazwy miejsca.\n\n" +
             "Współrzędne: " +
             latitude.toFixed(5) +
             ", " +
@@ -298,7 +296,7 @@
           );
         } else if (error.code === 2) {
           showMessage(
-            "Telefon nie może teraz ustalić lokalizacji. Włącz GPS i spróbuj ponownie."
+            "Telefon nie może ustalić lokalizacji. Włącz GPS i spróbuj ponownie."
           );
         } else if (error.code === 3) {
           showMessage(
