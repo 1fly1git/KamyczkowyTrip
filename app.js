@@ -409,13 +409,24 @@ async function loadTravelHistory() {
           `
           : "";
         const photo =
-    finding.photo_url
-        ? `
-            <div class="history-photo">
-                📷 Do zgłoszenia dodano zdjęcie
-            </div>
-        `
-        : "";
+  finding.photo_url
+    ? `
+        <div class="history-photo">
+          <img
+            src="${escapeHtml(finding.photo_url)}"
+            alt="Zdjęcie kamyczka Stefan"
+            loading="lazy"
+            style="
+              width:100%;
+              max-width:320px;
+              display:block;
+              margin-top:12px;
+              border-radius:14px;
+            "
+          >
+        </div>
+      `
+    : "";
 
         return `
           <article class="history-entry">
