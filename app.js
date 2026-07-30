@@ -424,5 +424,51 @@ async function loadStatistics() {
 }
 loadTravelHistory();
 
-document.getElementById("placesCount").textContent = "TEST";
-document.getElementById("findersCount").textContent = "TEST";
+
+async function loadStatistics() {
+  const placesElement = document.getElementById("placesCount");
+  const findersElement = document.getElementById("findersCount");
+
+  if (!placesElement || !findersElement) {
+    console.error("Nie znaleziono elementów statystyk.");
+    return;
+  }
+
+  try {
+    const { data, error } = await window.supabaseClient
+      .from("sightings")
+      .select("place_name, finder_name")
+      .eq("stone_code", "KT-000001")
+      .eq("moderation_status", "approved");
+
+    if (error) {
+      throw error;
+    }
+
+    console.log("Dane statystyk:", data);
+
+    const places = new Set();
+    const finders = new Set();
+
+    data.forEach(function (finding) {
+      if (finding.place_name) {
+        places.add(finding.place_name.trim().toLowerCase());
+      }
+
+      if (finding.finder_name) {
+        finders.add(finding.finder_name.trim().toLowerCase());
+      }
+    });
+
+    placesElement.textContent = places.size;
+    findersElement.textContent = finders.size;
+  } catch (error) {
+    console.error("Błąd statystyk:", error);
+
+    placesElement.textContent = "0";
+    findersElement.textContent = "0";
+  }
+}
+
+loadTravelHistory();
+loadStatistics();
