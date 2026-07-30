@@ -316,7 +316,7 @@ async function loadTravelHistory() {
     const { data, error } = await window.supabaseClient
       .from("sightings")
       .select(
-        "finder_name, found_date, place_name, comment, moderation_status"
+        "finder_name, found_date, place_name, comment, moderation_status, photo_url"
       )
       .eq("stone_code", "KT-000001")
       .eq("moderation_status", "approved")
