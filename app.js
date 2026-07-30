@@ -206,7 +206,11 @@ async function saveFinding() {
     .getElementById("comment")
     .value
     .trim();
-
+const editedPlaceName = document
+  .getElementById("placeName")
+  .value
+  .trim();
+  
   const photoFile = document
     .getElementById("findingPhoto")
     .files[0] || null;
