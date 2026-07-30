@@ -553,3 +553,29 @@ async function loadStatistics() {
 loadTravelHistory();
 loadStatistics();
 
+
+const photoInput =
+  document.getElementById("findingPhoto");
+
+const photoPreview =
+  document.getElementById("photoPreview");
+
+if (photoInput && photoPreview) {
+
+  photoInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) {
+      photoPreview.style.display = "none";
+      return;
+    }
+
+    photoPreview.src =
+      URL.createObjectURL(file);
+
+    photoPreview.style.display = "block";
+
+  });
+
+}
