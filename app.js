@@ -217,30 +217,65 @@ const photoFile = document
   .files[0] || null;
 
 let photoUrl = null;
+
+const submitButton =
+  document.getElementById("submitFinding");
+
+if (submitButton) {
+  submitButton.disabled = true;
+  submitButton.textContent = "Zapisywanie…";
+}
+
+showMessage("Zapisuję zgłoszenie…");
+
+try {
   if (photoFile) {
-  const formData = new FormData();
+    const formData = new FormData();
 
-  formData.append("photo", photoFile);
-  formData.append("stone_code", "KT-000001");
+    formData.append("photo", photoFile);
+    formData.append("stone_code", "KT-000001");
 
-  const uploadResponse = await fetch(
-    "https://kamyczkowytrip.pl/upload.php",
-    {
-      method: "POST",
-      body: formData
-    }
-  );
-
-  const uploadResult = await uploadResponse.json();
-
-  if (!uploadResponse.ok || !uploadResult.success) {
-    throw new Error(
-      uploadResult.message || "Nie udało się wysłać zdjęcia."
+    const uploadResponse = await fetch(
+      "https://kamyczkowytrip.pl/upload.php",
+      {
+        method: "POST",
+        body: formData
+      }
     );
+
+    const uploadResult = await uploadResponse.json();
+
+    if (!uploadResponse.ok || !uploadResult.success) {
+      throw new Error(
+        uploadResult.message ||
+        "Nie udało się wysłać zdjęcia."
+      );
+    }
+
+    photoUrl = uploadResult.photo_url;
   }
 
-  photoUrl = uploadResult.photo_url;
-}
+  const { error } = await window.supabaseClient
+    .from("sightings")
+    .insert({
+      stone_code: "KT-000001",
+      finder_name: finderName || null,
+      latitude: currentLocation.latitude,
+      longitude: currentLocation.longitude,
+      place_name: currentLocation.placeName,
+      comment: comment || null,
+      photo_url: photoUrl,
+      location_accuracy: currentLocation.accuracy,
+      moderation_status: "pending"
+    });
+
+
+  
+
+
+
+
+    
   const submitButton = document.getElementById("submitFinding");
 
   if (submitButton) {
