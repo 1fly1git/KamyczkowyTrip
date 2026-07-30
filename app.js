@@ -212,7 +212,11 @@ async function saveFinding() {
     .getElementById("comment")
     .value
     .trim();
+const photoFile = document
+  .getElementById("findingPhoto")
+  .files[0] || null;
 
+let photoUrl = null;
   const submitButton = document.getElementById("submitFinding");
 
   if (submitButton) {
