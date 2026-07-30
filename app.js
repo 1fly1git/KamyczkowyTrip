@@ -422,105 +422,8 @@ async function loadStatistics() {
     console.error("Błąd pobierania statystyk:", error);
   }
 }
-loadTravelHistory();
 
-
-async function loadStatistics() {
-  const placesElement = document.getElementById("placesCount");
-  const findersElement = document.getElementById("findersCount");
-
-  if (!placesElement || !findersElement) {
-    console.error("Nie znaleziono elementów statystyk.");
-    return;
-  }
-
-  try {
-    const { data, error } = await window.supabaseClient
-      .from("sightings")
-      .select(
-  "place_name, finder_name, latitude, longitude, found_date"
-)
-      .eq("stone_code", "KT-000001")
-      .eq("moderation_status", "approved")
-    .order("found_date", { ascending: true });
-
-    if (error) {
-      throw error;
-    }
-
-    console.log("Dane statystyk:", data);
-
-    const places = new Set();
-    const finders = new Set();
-let totalDistance = 0;
-    data.forEach(function (finding) {
-      if (finding.place_name) {
-        places.add(finding.place_name.trim().toLowerCase());
-      }
-
-      if (finding.finder_name) {
-        finders.add(finding.finder_name.trim().toLowerCase());
-      }
-    });
-for (let index = 1; index < data.length; index++) {
-  const previousFinding = data[index - 1];
-  const currentFinding = data[index];
-
-  const previousLatitude =
-    Number(previousFinding.latitude);
-
-  const previousLongitude =
-    Number(previousFinding.longitude);
-
-  const currentLatitude =
-    Number(currentFinding.latitude);
-
-  const currentLongitude =
-    Number(currentFinding.longitude);
-
-  const coordinatesAreValid =
-    Number.isFinite(previousLatitude) &&
-    Number.isFinite(previousLongitude) &&
-    Number.isFinite(currentLatitude) &&
-    Number.isFinite(currentLongitude);
-
-  if (coordinatesAreValid) {
-    totalDistance += calculateDistanceKm(
-      previousLatitude,
-      previousLongitude,
-      currentLatitude,
-      currentLongitude
-    );
-  }
-}
-    placesElement.textContent = places.size;
-    findersElement.textContent = finders.size;
-const distanceElement =
-  document.getElementById("distanceCount");
-
-if (distanceElement) {
-  distanceElement.textContent =
-    Math.round(totalDistance) + " km";
-}
-    
-document.getElementById("placesLabel").textContent =
-  formatPlacesCount(places.size);
-
-document.getElementById("findersLabel").textContent =
-  formatFindersCount(finders.size);
-
-    
-  } catch (error) {
-    console.error("Błąd statystyk:", error);
-
-    placesElement.textContent = "0";
-    findersElement.textContent = "0";
-  }
-}
-
-loadTravelHistory();
-
-function formatPlacesCount(count) {
+      function formatPlacesCount(count) {
   if (count === 1) {
     return "miejsce";
   }
@@ -539,6 +442,7 @@ function formatFindersCount(count) {
 
   return "znalazców";
 }
+
 function calculateDistanceKm(lat1, lon1, lat2, lon2) {
   const earthRadiusKm = 6371;
 
@@ -564,4 +468,127 @@ function calculateDistanceKm(lat1, lon1, lat2, lon2) {
 
   return earthRadiusKm * c;
 }
+
+async function loadStatistics() {
+  const placesElement =
+    document.getElementById("placesCount");
+
+  const findersElement =
+    document.getElementById("findersCount");
+
+  const distanceElement =
+    document.getElementById("distanceCount");
+
+  const placesLabel =
+    document.getElementById("placesLabel");
+
+  const findersLabel =
+    document.getElementById("findersLabel");
+
+  if (!placesElement || !findersElement) {
+    console.error("Nie znaleziono elementów statystyk.");
+    return;
+  }
+
+  if (!window.supabaseClient) {
+    console.error("Supabase nie został uruchomiony.");
+    return;
+  }
+
+  try {
+    const { data, error } = await window.supabaseClient
+      .from("sightings")
+      .select(
+        "place_name, finder_name, latitude, longitude, found_date"
+      )
+      .eq("stone_code", "KT-000001")
+      .eq("moderation_status", "approved")
+      .order("found_date", { ascending: true });
+
+    if (error) {
+      throw error;
+    }
+
+    const places = new Set();
+    const finders = new Set();
+
+    data.forEach(function (finding) {
+      if (finding.place_name) {
+        places.add(
+          finding.place_name.trim().toLowerCase()
+        );
+      }
+
+      if (finding.finder_name) {
+        finders.add(
+          finding.finder_name.trim().toLowerCase()
+        );
+      }
+    });
+
+    let totalDistance = 0;
+
+    for (let index = 1; index < data.length; index++) {
+      const previousFinding = data[index - 1];
+      const currentFinding = data[index];
+
+      const previousLatitude =
+        Number(previousFinding.latitude);
+
+      const previousLongitude =
+        Number(previousFinding.longitude);
+
+      const currentLatitude =
+        Number(currentFinding.latitude);
+
+      const currentLongitude =
+        Number(currentFinding.longitude);
+
+      const coordinatesAreValid =
+        Number.isFinite(previousLatitude) &&
+        Number.isFinite(previousLongitude) &&
+        Number.isFinite(currentLatitude) &&
+        Number.isFinite(currentLongitude);
+
+      if (coordinatesAreValid) {
+        totalDistance += calculateDistanceKm(
+          previousLatitude,
+          previousLongitude,
+          currentLatitude,
+          currentLongitude
+        );
+      }
+    }
+
+    placesElement.textContent = places.size;
+    findersElement.textContent = finders.size;
+
+    if (distanceElement) {
+      distanceElement.textContent =
+        Math.round(totalDistance) + " km";
+    }
+
+    if (placesLabel) {
+      placesLabel.textContent =
+        formatPlacesCount(places.size);
+    }
+
+    if (findersLabel) {
+      findersLabel.textContent =
+        formatFindersCount(finders.size);
+    }
+  } catch (error) {
+    console.error("Błąd pobierania statystyk:", error);
+
+    placesElement.textContent = "0";
+    findersElement.textContent = "0";
+
+    if (distanceElement) {
+      distanceElement.textContent = "0 km";
+    }
+  }
+}
+
+loadTravelHistory();
 loadStatistics();
+
