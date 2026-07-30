@@ -269,4 +269,113 @@ async function saveFinding() {
 }
 
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
+function formatFindingDate(dateValue) {
+  if (!dateValue) {
+    return "Brak daty";
+  }
+
+  const date = new Date(dateValue);
+
+  if (Number.isNaN(date.getTime())) {
+    return "Brak daty";
+  }
+
+  return date.toLocaleDateString("pl-PL", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+}
+
+async function loadTravelHistory() {
+  const historyContainer =
+    document.getElementById("travelHistory");
+
+  if (!historyContainer) {
+    return;
+  }
+
+  if (!window.supabaseClient) {
+    historyContainer.textContent =
+      "Nie udało się połączyć z bazą.";
+    return;
+  }
+
+  try {
+    const { data, error } = await window.supabaseClient
+      .from("sightings")
+      .select(
+        "finder_name, found_date, place_name, comment, moderation_status"
+      )
+      .eq("stone_code", "KT-000001")
+      .eq("moderation_status", "approved")
+      .order("found_date", { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data || data.length === 0) {
+      historyContainer.innerHTML = `
+        <div class="empty-history">
+          Stefan nie ma jeszcze zatwierdzonych wpisów.
+        </div>
+      `;
+      return;
+    }
+
+    historyContainer.innerHTML = data
+      .map(function (finding) {
+        const finderName =
+          finding.finder_name || "Anonimowy podróżnik";
+
+        const placeName =
+          finding.place_name || "Nieznane miejsce";
+
+        const comment = finding.comment
+          ? `
+            <div class="history-comment">
+              „${escapeHtml(finding.comment)}”
+            </div>
+          `
+          : "";
+
+        return `
+          <article class="history-entry">
+            <div class="history-name">
+              👤 ${escapeHtml(finderName)}
+            </div>
+
+            <div class="history-place">
+              📍 ${escapeHtml(placeName)}
+            </div>
+
+            <div class="history-date">
+              🗓️ ${formatFindingDate(finding.found_date)}
+            </div>
+
+            ${comment}
+          </article>
+        `;
+      })
+      .join("");
+  } catch (error) {
+    console.error("Błąd pobierania historii:", error);
+
+    historyContainer.textContent =
+      "Nie udało się pobrać historii podróży.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  loadTravelHistory();
+});
