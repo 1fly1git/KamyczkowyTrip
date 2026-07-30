@@ -471,4 +471,25 @@ async function loadStatistics() {
 }
 
 loadTravelHistory();
+
+function formatPlacesCount(count) {
+  if (count === 1) {
+    return "miejsce";
+  }
+
+  if (count >= 2 && count <= 4) {
+    return "miejsca";
+  }
+
+  return "miejsc";
+}
+
+function formatFindersCount(count) {
+  if (count === 1) {
+    return "znalazca";
+  }
+
+  return "znalazców";
+}
+
 loadStatistics();
