@@ -118,3 +118,55 @@ footer {
   color: #777;
   font-size: 13px;
 }
+
+
+.travel-book {
+  margin-top: 20px;
+}
+
+.travel-book h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.book-intro {
+  text-align: center;
+  color: #666;
+  line-height: 1.5;
+}
+
+.history-entry {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f6f6f6;
+  border-radius: 16px;
+}
+
+.history-entry:first-child {
+  margin-top: 0;
+}
+
+.history-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.history-place,
+.history-date {
+  margin-top: 6px;
+  color: #555;
+}
+
+.history-comment {
+  margin-top: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.empty-history {
+  padding: 18px;
+  text-align: center;
+  color: #666;
+  background: #f6f6f6;
+  border-radius: 16px;
+}
