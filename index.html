@@ -2,136 +2,32 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>KamyczkowyTrip – Stefan</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+  <link rel="stylesheet" href="style.css">
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f1e8;
-      color: #252525;
-    }
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    defer
+  ></script>
 
-    .page {
-      width: 100%;
-      max-width: 520px;
-      min-height: 100vh;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .brand {
-      text-align: center;
-      font-weight: bold;
-      font-size: 22px;
-      margin-bottom: 18px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 24px;
-      padding: 24px 20px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
-    }
-
-    .stone {
-      text-align: center;
-      font-size: 74px;
-      margin-bottom: 4px;
-    }
-
-    h1 {
-      text-align: center;
-      margin: 0;
-      font-size: 38px;
-    }
-
-    .number {
-      text-align: center;
-      color: #666;
-      margin-top: 6px;
-    }
-
-    .intro {
-      text-align: center;
-      font-size: 18px;
-      line-height: 1.5;
-      margin: 24px 0;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 22px 0;
-    }
-
-    .stat {
-      background: #f6f6f6;
-      border-radius: 16px;
-      padding: 16px 10px;
-      text-align: center;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 26px;
-      margin-bottom: 4px;
-    }
-
-    .button {
-      display: block;
-      width: 100%;
-      border: none;
-      border-radius: 16px;
-      padding: 17px;
-      margin-top: 18px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      background: #257a4b;
-      color: white;
-    }
-
-    .message {
-      display: none;
-      margin-top: 18px;
-      padding: 15px;
-      border-radius: 14px;
-      background: #eef7f1;
-      line-height: 1.5;
-    }
-
-    .rules {
-      margin-top: 22px;
-      text-align: center;
-      color: #555;
-      line-height: 1.5;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 22px;
-      color: #777;
-      font-size: 13px;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 
 <body>
   <main class="page">
-
-    <div class="brand">🪨 KamyczkowyTrip</div>
+    <div class="brand">
+      🪨 KamyczkowyTrip
+    </div>
 
     <section class="card">
-
       <div class="stone">🪨</div>
 
       <h1>Stefan</h1>
@@ -146,7 +42,6 @@
       </p>
 
       <div class="stats">
-
         <div class="stat">
           <strong>0</strong>
           miejsc
@@ -166,16 +61,22 @@
           <strong>0</strong>
           zdjęć
         </div>
-
       </div>
 
-      <button class="button" onclick="testLocation()">
+      <button
+        class="button"
+        type="button"
+        onclick="testLocation()"
+      >
         📍 Znalazłem Stefana
       </button>
 
-
-      <button class="button" onclick="testSupabaseConnection()">
-  🔌 Sprawdź połączenie z bazą
+      <button
+        class="button"
+        type="button"
+        onclick="testSupabaseConnection()"
+      >
+        🔌 Sprawdź połączenie z bazą
       </button>
 
       <div id="message" class="message"></div>
@@ -184,171 +85,11 @@
         Nie zatrzymuj mnie na zawsze.<br>
         Zrób zdjęcie, zgłoś moje miejsce i przekaż mnie dalej ❤️
       </div>
-
     </section>
 
     <footer>
       Pierwsza wersja testowa KamyczkowyTrip
     </footer>
-
   </main>
-
-<script>
-  const SUPABASE_URL = "https://wouqjbdjuhxysdocfxww.supabase.co" ;
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_H3ctXbWRj6B-02n0Cy1g0Q_CiTPYmUC" ;
-async function testSupabaseConnection() {
-  const { data, error } = await supabaseClient
-    .from("stones")
-    .select("*")
-    .limit(1);
-
-  if (error) {
-    console.error("Błąd Supabase:", error);
-    showMessage(
-      "Połączenie z Supabase nie działa jeszcze.\n\n" +
-      error.message
-    );
-    return;
-  }
-
-  console.log("Supabase działa:", data);
-
-  showMessage(
-    "Połączenie z Supabase działa ✅\n" +
-    "Tabela stones jest dostępna."
-  );
-}
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
-  function showMessage(text) {
-    const message = document.getElementById("message");
-    message.textContent = text;
-    message.style.display = "block";
-    message.style.whiteSpace = "pre-line";
-  }
-
-  function getPlaceName(address) {
-    return (
-      address.tourism ||
-      address.attraction ||
-      address.amenity ||
-      address.neighbourhood ||
-      address.suburb ||
-      address.village ||
-      address.town ||
-      address.city ||
-      address.municipality ||
-      address.county ||
-      address.state ||
-      "Nieznane miejsce"
-    );
-  }
-
-  async function reverseGeocode(latitude, longitude) {
-    const url =
-      "https://nominatim.openstreetmap.org/reverse" +
-      "?format=jsonv2" +
-      "&lat=" + encodeURIComponent(latitude) +
-      "&lon=" + encodeURIComponent(longitude) +
-      "&accept-language=pl" +
-      "&zoom=18" +
-      "&addressdetails=1";
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error("Nie udało się pobrać nazwy miejsca.");
-    }
-
-    return await response.json();
-  }
-
-  function testLocation() {
-    if (!navigator.geolocation) {
-      showMessage(
-        "Ta przeglądarka nie obsługuje pobierania lokalizacji."
-      );
-      return;
-    }
-
-    showMessage("Pobieram lokalizację telefonu…");
-
-    navigator.geolocation.getCurrentPosition(
-      async function(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        showMessage("Lokalizacja pobrana. Rozpoznaję miejsce…");
-
-        try {
-          const locationData = await reverseGeocode(
-            latitude,
-            longitude
-          );
-
-          const address = locationData.address || {};
-          const placeName = getPlaceName(address);
-
-          const region =
-            address.suburb ||
-            address.neighbourhood ||
-            address.county ||
-            "";
-
-          let locationText = placeName;
-
-          if (region && region !== placeName) {
-            locationText += ", " + region;
-          }
-
-          showMessage(
-            "Znaleziono miejsce ✅\n" +
-            locationText +
-            "\n\nWspółrzędne: " +
-            latitude.toFixed(5) +
-            ", " +
-            longitude.toFixed(5)
-          );
-        } catch (error) {
-          console.error(error);
-
-          showMessage(
-            "GPS działa, ale nie udało się rozpoznać nazwy miejsca.\n\n" +
-            "Współrzędne: " +
-            latitude.toFixed(5) +
-            ", " +
-            longitude.toFixed(5)
-          );
-        }
-      },
-      function(error) {
-        if (error.code === 1) {
-          showMessage(
-            "Odmówiono dostępu do lokalizacji. Zezwól stronie na korzystanie z GPS."
-          );
-        } else if (error.code === 2) {
-          showMessage(
-            "Telefon nie może ustalić lokalizacji. Włącz GPS i spróbuj ponownie."
-          );
-        } else if (error.code === 3) {
-          showMessage(
-            "Pobieranie lokalizacji trwało zbyt długo. Spróbuj ponownie."
-          );
-        } else {
-          showMessage(
-            "Nie udało się pobrać lokalizacji."
-          );
-        }
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 0
-      }
-    );
-  }
-</script>
 </body>
 </html>
