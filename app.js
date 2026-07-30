@@ -250,6 +250,7 @@ async function saveFinding() {
 
       const uploadResult =
         await uploadResponse.json();
+      alert(JSON.stringify(uploadResult));
 
       if (
         !uploadResponse.ok ||
