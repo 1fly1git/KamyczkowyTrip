@@ -441,7 +441,7 @@ async function loadStatistics() {
   "place_name, finder_name, latitude, longitude, found_date"
 )
       .eq("stone_code", "KT-000001")
-      .eq("moderation_status", "approved");
+      .eq("moderation_status", "approved")
     .order("found_date", { ascending: true });
 
     if (error) {
