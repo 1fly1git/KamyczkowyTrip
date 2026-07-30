@@ -217,6 +217,30 @@ const photoFile = document
   .files[0] || null;
 
 let photoUrl = null;
+  if (photoFile) {
+  const formData = new FormData();
+
+  formData.append("photo", photoFile);
+  formData.append("stone_code", "KT-000001");
+
+  const uploadResponse = await fetch(
+    "https://kamyczkowytrip.pl/upload.php",
+    {
+      method: "POST",
+      body: formData
+    }
+  );
+
+  const uploadResult = await uploadResponse.json();
+
+  if (!uploadResponse.ok || !uploadResult.success) {
+    throw new Error(
+      uploadResult.message || "Nie udało się wysłać zdjęcia."
+    );
+  }
+
+  photoUrl = uploadResult.photo_url;
+}
   const submitButton = document.getElementById("submitFinding");
 
   if (submitButton) {
