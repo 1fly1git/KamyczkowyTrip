@@ -462,7 +462,37 @@ let totalDistance = 0;
         finders.add(finding.finder_name.trim().toLowerCase());
       }
     });
+for (let index = 1; index < data.length; index++) {
+  const previousFinding = data[index - 1];
+  const currentFinding = data[index];
 
+  const previousLatitude =
+    Number(previousFinding.latitude);
+
+  const previousLongitude =
+    Number(previousFinding.longitude);
+
+  const currentLatitude =
+    Number(currentFinding.latitude);
+
+  const currentLongitude =
+    Number(currentFinding.longitude);
+
+  const coordinatesAreValid =
+    Number.isFinite(previousLatitude) &&
+    Number.isFinite(previousLongitude) &&
+    Number.isFinite(currentLatitude) &&
+    Number.isFinite(currentLongitude);
+
+  if (coordinatesAreValid) {
+    totalDistance += calculateDistanceKm(
+      previousLatitude,
+      previousLongitude,
+      currentLatitude,
+      currentLongitude
+    );
+  }
+}
     placesElement.textContent = places.size;
     findersElement.textContent = finders.size;
 document.getElementById("placesLabel").textContent =
