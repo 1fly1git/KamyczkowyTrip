@@ -253,6 +253,8 @@ async function saveFinding() {
     document.getElementById("finderName").value = "";
     document.getElementById("comment").value = "";
     document.getElementById("findForm").style.display = "none";
+
+    loadTravelHistory();
   } catch (error) {
     console.error("Błąd zapisu zgłoszenia:", error);
 
