@@ -495,6 +495,14 @@ for (let index = 1; index < data.length; index++) {
 }
     placesElement.textContent = places.size;
     findersElement.textContent = finders.size;
+const distanceElement =
+  document.getElementById("distanceCount");
+
+if (distanceElement) {
+  distanceElement.textContent =
+    Math.round(totalDistance) + " km";
+}
+    
 document.getElementById("placesLabel").textContent =
   formatPlacesCount(places.size);
 
