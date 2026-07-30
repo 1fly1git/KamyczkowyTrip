@@ -95,7 +95,27 @@
     rows="4"
     placeholder="Napisz kilka słów..."
     style="width:100%;padding:12px;margin-top:6px;border-radius:10px;border:1px solid #ccc;"></textarea>
+<label for="findingPhoto">
+  📷 Zdjęcie kamyczka (opcjonalnie)
+</label>
 
+<input
+  type="file"
+  id="findingPhoto"
+  accept="image/*"
+  capture="environment"
+>
+
+<img
+  id="photoPreview"
+  style="
+    display:none;
+    width:100%;
+    max-width:350px;
+    margin-top:10px;
+    border-radius:12px;
+  "
+>
 <button
   id="submitFinding"
   class="button"
