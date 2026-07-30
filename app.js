@@ -151,7 +151,7 @@ document.getElementById("findForm").style.display = "block";
         console.error("Błąd rozpoznawania miejsca:", error);
 
         showMessage(
-          "GPS działa, ale nie udało się rozpoznać miejsca.\n\n" +
+          "GPS działa, ale nie udało się rozpoznać miejsca."
           
         );
       }
