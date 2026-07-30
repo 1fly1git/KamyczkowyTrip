@@ -1,3 +1,13 @@
+
+let currentLocation = {
+  latitude: null,
+  longitude: null,
+  accuracy: null,
+  placeName: ""
+};
+
+
+
 function showMessage(text) {
   const message = document.getElementById("message");
 
@@ -96,6 +106,11 @@ function testLocation() {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
 
+currentLocation.latitude = latitude;
+currentLocation.longitude = longitude;
+currentLocation.accuracy = position.coords.accuracy;
+      
+
       showMessage("Lokalizacja pobrana. Rozpoznaję miejsce…");
 
 
@@ -121,6 +136,9 @@ function testLocation() {
         }
 
 document.getElementById("placeName").value = locationText;
+
+currentLocation.placeName = locationText;
+        
 document.getElementById("findForm").style.display = "block";
 
 showMessage(
@@ -174,28 +192,81 @@ showMessage(
     }
   );
 }
-
 async function saveFinding() {
+  if (!window.supabaseClient) {
+    showMessage("Brak połączenia z Supabase.");
+    return;
+  }
 
-  const nick =
-    document.getElementById("finderName").value;
+  if (
+    currentLocation.latitude === null ||
+    currentLocation.longitude === null
+  ) {
+    showMessage(
+      "Najpierw pobierz lokalizację przyciskiem „Znalazłem Stefana”."
+    );
+    return;
+  }
 
-  const comment =
-    document.getElementById("comment").value;
+  const finderName = document
+    .getElementById("finderName")
+    .value
+    .trim();
 
-  const place =
-    document.getElementById("placeName").value;
+  const comment = document
+    .getElementById("comment")
+    .value
+    .trim();
 
-  showMessage(
-`✅ Formularz działa!
+  const submitButton = document.getElementById("submitFinding");
 
-Nick: ${nick || "Anonimowy podróżnik"}
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Zapisywanie…";
+  }
 
-Miejsce:
-${place}
+  showMessage("Zapisuję zgłoszenie…");
 
-Komentarz:
-${comment || "(brak)"}`);
+  try {
+    const { error } = await window.supabaseClient
+      .from("sightings")
+      .insert({
+        stone_code: "KT-000001",
+        finder_name: finderName || null,
+        latitude: currentLocation.latitude,
+        longitude: currentLocation.longitude,
+        place_name: currentLocation.placeName,
+        comment: comment || null,
+        location_accuracy: currentLocation.accuracy,
+        moderation_status: "pending"
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    showMessage(
+      "❤️ Dziękujemy!\n\n" +
+      "Zgłoszenie znalezienia Stefana zostało zapisane."
+    );
+
+    document.getElementById("finderName").value = "";
+    document.getElementById("comment").value = "";
+    document.getElementById("findForm").style.display = "none";
+  } catch (error) {
+    console.error("Błąd zapisu zgłoszenia:", error);
+
+    showMessage(
+      "Nie udało się zapisać zgłoszenia.\n\n" +
+      (error.message || "Nieznany błąd")
+    );
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "❤️ Wyślij zgłoszenie";
+    }
+  }
 }
+
 
 
