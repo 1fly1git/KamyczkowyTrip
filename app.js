@@ -236,6 +236,7 @@ let photoUrl = null;
         longitude: currentLocation.longitude,
         place_name: currentLocation.placeName,
         comment: comment || null,
+        photo_url: photoUrl,
         location_accuracy: currentLocation.accuracy,
         moderation_status: "pending"
       });
