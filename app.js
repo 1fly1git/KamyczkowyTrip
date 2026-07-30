@@ -212,71 +212,15 @@ async function saveFinding() {
     .getElementById("comment")
     .value
     .trim();
-const photoFile = document
-  .getElementById("findingPhoto")
-  .files[0] || null;
 
-let photoUrl = null;
+  const photoFile = document
+    .getElementById("findingPhoto")
+    .files[0] || null;
 
-const submitButton =
-  document.getElementById("submitFinding");
+  let photoUrl = null;
 
-if (submitButton) {
-  submitButton.disabled = true;
-  submitButton.textContent = "Zapisywanie…";
-}
-
-showMessage("Zapisuję zgłoszenie…");
-
-try {
-  if (photoFile) {
-    const formData = new FormData();
-
-    formData.append("photo", photoFile);
-    formData.append("stone_code", "KT-000001");
-
-    const uploadResponse = await fetch(
-      "https://kamyczkowytrip.pl/upload.php",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
-
-    const uploadResult = await uploadResponse.json();
-
-    if (!uploadResponse.ok || !uploadResult.success) {
-      throw new Error(
-        uploadResult.message ||
-        "Nie udało się wysłać zdjęcia."
-      );
-    }
-
-    photoUrl = uploadResult.photo_url;
-  }
-
-  const { error } = await window.supabaseClient
-    .from("sightings")
-    .insert({
-      stone_code: "KT-000001",
-      finder_name: finderName || null,
-      latitude: currentLocation.latitude,
-      longitude: currentLocation.longitude,
-      place_name: currentLocation.placeName,
-      comment: comment || null,
-      photo_url: photoUrl,
-      location_accuracy: currentLocation.accuracy,
-      moderation_status: "pending"
-    });
-
-
-  
-
-
-
-
-    
-  const submitButton = document.getElementById("submitFinding");
+  const submitButton =
+    document.getElementById("submitFinding");
 
   if (submitButton) {
     submitButton.disabled = true;
@@ -286,6 +230,36 @@ try {
   showMessage("Zapisuję zgłoszenie…");
 
   try {
+    if (photoFile) {
+      const formData = new FormData();
+
+      formData.append("photo", photoFile);
+      formData.append("stone_code", "KT-000001");
+
+      const uploadResponse = await fetch(
+        "https://kamyczkowytrip.pl/upload.php",
+        {
+          method: "POST",
+          body: formData
+        }
+      );
+
+      const uploadResult =
+        await uploadResponse.json();
+
+      if (
+        !uploadResponse.ok ||
+        !uploadResult.success
+      ) {
+        throw new Error(
+          uploadResult.message ||
+          "Nie udało się wysłać zdjęcia."
+        );
+      }
+
+      photoUrl = uploadResult.photo_url;
+    }
+
     const { error } = await window.supabaseClient
       .from("sightings")
       .insert({
@@ -311,11 +285,25 @@ try {
 
     document.getElementById("finderName").value = "";
     document.getElementById("comment").value = "";
-    document.getElementById("findForm").style.display = "none";
+    document.getElementById("findingPhoto").value = "";
+    document.getElementById("findForm").style.display =
+      "none";
+
+    const photoPreview =
+      document.getElementById("photoPreview");
+
+    if (photoPreview) {
+      photoPreview.src = "";
+      photoPreview.style.display = "none";
+    }
 
     loadTravelHistory();
+    loadStatistics();
   } catch (error) {
-    console.error("Błąd zapisu zgłoszenia:", error);
+    console.error(
+      "Błąd zapisu zgłoszenia:",
+      error
+    );
 
     showMessage(
       "Nie udało się zapisać zgłoszenia.\n\n" +
@@ -324,12 +312,18 @@ try {
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
-      submitButton.textContent = "❤️ Wyślij zgłoszenie";
+      submitButton.textContent =
+        "❤️ Wyślij zgłoszenie";
     }
   }
 }
 
 
+
+
+
+
+      
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
