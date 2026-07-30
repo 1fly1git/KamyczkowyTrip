@@ -498,5 +498,29 @@ function formatFindersCount(count) {
 
   return "znalazców";
 }
+function calculateDistanceKm(lat1, lon1, lat2, lon2) {
+  const earthRadiusKm = 6371;
 
+  const latitudeDifference =
+    (lat2 - lat1) * Math.PI / 180;
+
+  const longitudeDifference =
+    (lon2 - lon1) * Math.PI / 180;
+
+  const firstLatitude = lat1 * Math.PI / 180;
+  const secondLatitude = lat2 * Math.PI / 180;
+
+  const a =
+    Math.sin(latitudeDifference / 2) ** 2 +
+    Math.cos(firstLatitude) *
+    Math.cos(secondLatitude) *
+    Math.sin(longitudeDifference / 2) ** 2;
+
+  const c = 2 * Math.atan2(
+    Math.sqrt(a),
+    Math.sqrt(1 - a)
+  );
+
+  return earthRadiusKm * c;
+}
 loadStatistics();
