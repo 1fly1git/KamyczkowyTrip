@@ -98,6 +98,10 @@ function testLocation() {
 
       showMessage("Lokalizacja pobrana. Rozpoznaję miejsce…");
 
+
+      document.getElementById("findForm").style.display = "block";
+document.getElementById("placeName").value = locationText;
+
       try {
         const locationData = await reverseGeocode(
           latitude,
