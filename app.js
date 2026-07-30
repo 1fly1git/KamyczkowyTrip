@@ -423,4 +423,6 @@ async function loadStatistics() {
   }
 }
 loadTravelHistory();
-loadStatistics();
+
+document.getElementById("placesCount").textContent = "TEST";
+document.getElementById("findersCount").textContent = "TEST";
