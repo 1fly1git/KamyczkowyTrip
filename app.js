@@ -99,9 +99,6 @@ function testLocation() {
       showMessage("Lokalizacja pobrana. Rozpoznaję miejsce…");
 
 
-      document.getElementById("findForm").style.display = "block";
-document.getElementById("placeName").value = locationText;
-
       try {
         const locationData = await reverseGeocode(
           latitude,
@@ -122,6 +119,16 @@ document.getElementById("placeName").value = locationText;
         if (region && region !== placeName) {
           locationText += ", " + region;
         }
+
+document.getElementById("placeName").value = locationText;
+document.getElementById("findForm").style.display = "block";
+
+showMessage(
+  "Lokalizacja rozpoznana ✅\n" +
+  locationText
+);
+
+        
 
         showMessage(
           "Znaleziono miejsce ✅\n" +
