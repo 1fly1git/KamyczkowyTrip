@@ -152,10 +152,7 @@ document.getElementById("findForm").style.display = "block";
 
         showMessage(
           "GPS działa, ale nie udało się rozpoznać miejsca.\n\n" +
-          "Współrzędne: " +
-          latitude.toFixed(5) +
-          ", " +
-          longitude.toFixed(5)
+          
         );
       }
     },
