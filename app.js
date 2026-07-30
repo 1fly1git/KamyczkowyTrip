@@ -462,6 +462,13 @@ async function loadStatistics() {
 
     placesElement.textContent = places.size;
     findersElement.textContent = finders.size;
+document.getElementById("placesLabel").textContent =
+  formatPlacesCount(places.size);
+
+document.getElementById("findersLabel").textContent =
+  formatFindersCount(finders.size);
+
+    
   } catch (error) {
     console.error("Błąd statystyk:", error);
 
