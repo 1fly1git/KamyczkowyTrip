@@ -231,7 +231,9 @@ async function saveFinding() {
   showMessage("Zapisuję zgłoszenie…");
 
   try {
+    alert("wchodzę do try");
     if (photoFile) {
+      alert("mam zdjęcie, zaczynam upload");
       const formData = new FormData();
 
       formData.append("photo", photoFile);
@@ -244,6 +246,7 @@ async function saveFinding() {
           body: formData
         }
       );
+      alert("serwer odpowiedział");
 
       const uploadResult =
         await uploadResponse.json();
