@@ -188,6 +188,7 @@ document.getElementById("findForm").style.display = "block";
   );
 }
 async function saveFinding() {
+  alert("saveFinding działa");
   if (!window.supabaseClient) {
     showMessage("Brak połączenia z Supabase.");
     return;
