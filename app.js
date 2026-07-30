@@ -350,6 +350,14 @@ async function loadTravelHistory() {
             </div>
           `
           : "";
+        const photo =
+    finding.photo_url
+        ? `
+            <div class="history-photo">
+                📷 Do zgłoszenia dodano zdjęcie
+            </div>
+        `
+        : "";
 
         return `
           <article class="history-entry">
