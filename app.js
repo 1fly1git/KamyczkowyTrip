@@ -374,6 +374,7 @@ async function loadTravelHistory() {
             </div>
 
             ${comment}
+            ${photo}
           </article>
         `;
       })
