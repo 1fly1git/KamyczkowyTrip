@@ -145,11 +145,7 @@ document.getElementById("findForm").style.display = "block";
 
         showMessage(
           "Znaleziono miejsce ✅\n" +
-          locationText +
-          "\n\nWspółrzędne: " +
-          latitude.toFixed(5) +
-          ", " +
-          longitude.toFixed(5)
+          locationText
         );
       } catch (error) {
         console.error("Błąd rozpoznawania miejsca:", error);
