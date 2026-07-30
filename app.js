@@ -141,11 +141,6 @@ currentLocation.placeName = locationText;
         
 document.getElementById("findForm").style.display = "block";
 
-showMessage(
-  "Lokalizacja rozpoznana ✅\n" +
-  locationText
-);
-
         
 
         showMessage(
