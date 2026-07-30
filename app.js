@@ -452,7 +452,7 @@ async function loadStatistics() {
 
     const places = new Set();
     const finders = new Set();
-
+let totalDistance = 0;
     data.forEach(function (finding) {
       if (finding.place_name) {
         places.add(finding.place_name.trim().toLowerCase());
