@@ -378,6 +378,4 @@ async function loadTravelHistory() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  loadTravelHistory();
-});
+loadTravelHistory();
