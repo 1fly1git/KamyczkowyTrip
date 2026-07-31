@@ -39,7 +39,7 @@ async function loadPendingSightings() {
       await window.supabaseClient
         .from("sightings")
         .select("*")
-        .eq("status", "pending")
+        .eq("moderation_status", "pending")
         .order("created_at", {
           ascending: true
         });
