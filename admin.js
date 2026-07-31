@@ -14,6 +14,135 @@ function showLoginPanel() {
   document.getElementById("moderationPanel").style.display = "none";
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+async function loadPendingSightings() {
+  const container =
+    document.getElementById("pendingSightings");
+
+  if (!container) {
+    return;
+  }
+
+  container.textContent = "Ładuję zgłoszenia…";
+
+  try {
+    const { data, error } =
+      await window.supabaseClient
+        .from("sightings")
+        .select("*")
+        .eq("status", "pending")
+        .order("created_at", {
+          ascending: true
+        });
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data || data.length === 0) {
+      container.innerHTML =
+        "<p>Brak oczekujących zgłoszeń ✅</p>";
+
+      return;
+    }
+
+    container.innerHTML = data
+      .map(function (finding) {
+        const finderName =
+          finding.finder_name ||
+          "Anonimowy podróżnik";
+
+        const placeName =
+          finding.place_name ||
+          "Nieznane miejsce";
+
+        const stoneCode =
+          finding.stone_code ||
+          "Brak numeru";
+
+        const findingDate =
+          finding.finding_date
+            ? new Date(
+                finding.finding_date
+              ).toLocaleDateString("pl-PL")
+            : "Brak daty";
+
+        const photo = finding.photo_url
+          ? `
+              <img
+                src="${escapeHtml(finding.photo_url)}"
+                alt="Zdjęcie kamyczka"
+                loading="lazy"
+                style="
+                  width:100%;
+                  max-width:320px;
+                  display:block;
+                  margin-top:12px;
+                  border-radius:14px;
+                "
+              >
+            `
+          : "<p>Brak zdjęcia</p>";
+
+        return `
+          <article
+            style="
+              margin-top:18px;
+              padding:16px;
+              border:1px solid #ddd;
+              border-radius:14px;
+            "
+          >
+            <strong>
+              🪨 ${escapeHtml(stoneCode)}
+            </strong>
+
+            <p>
+              👤 ${escapeHtml(finderName)}
+            </p>
+
+            <p>
+              📍 ${escapeHtml(placeName)}
+            </p>
+
+            <p>
+              🗓️ ${escapeHtml(findingDate)}
+            </p>
+
+            ${photo}
+          </article>
+        `;
+      })
+      .join("");
+  } catch (error) {
+    console.error(
+      "Błąd pobierania zgłoszeń:",
+      error
+    );
+
+    container.innerHTML = `
+      <p>
+        Nie udało się pobrać zgłoszeń.
+      </p>
+
+      <p>
+        ${escapeHtml(
+          error.message || "Nieznany błąd"
+        )}
+      </p>
+    `;
+  }
+}
+
+
 function showModerationPanel(user) {
   document.getElementById("loginPanel").style.display = "none";
   document.getElementById("moderationPanel").style.display = "block";
