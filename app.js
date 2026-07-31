@@ -216,6 +216,7 @@ const editedPlaceName = document
     .files[0] || null;
 
   let photoUrl = null;
+  let thumbnailUrl = null;
 
   const submitButton =
     document.getElementById("submitFinding");
