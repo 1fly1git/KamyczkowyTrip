@@ -556,6 +556,9 @@ async function loadStatistics() {
     const finders = new Set();
 let photosCount = 0;
     data.forEach(function (finding) {
+      if (finding.photo_url) {
+  photosCount++;
+      }
       if (finding.place_name) {
         places.add(
           finding.place_name.trim().toLowerCase()
