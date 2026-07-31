@@ -261,6 +261,7 @@ const editedPlaceName = document
       }
 
       photoUrl = uploadResult.photo_url;
+      thumbnailUrl = uploadResult.thumbnail_url;
     }
 
     const { error } = await window.supabaseClient
