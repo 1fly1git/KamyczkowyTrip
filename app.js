@@ -693,7 +693,7 @@ data.forEach(function (finding, index) {
 
   const findingDate =
     formatFindingDate(finding.found_date);
-  const photo =
+  const popupPhoto =
   finding.photo_url
     ? `
         <div class="history-photo">
