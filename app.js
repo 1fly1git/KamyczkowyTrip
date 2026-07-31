@@ -629,9 +629,62 @@ async function loadStatistics() {
     }
   }
 }
+async function loadTravelMap() {
 
+  const mapElement = document.getElementById("travelMap");
+
+  if (!mapElement || !window.supabaseClient || !window.L) {
+    return;
+  }
+
+  const { data, error } = await window.supabaseClient
+    .from("sightings")
+    .select("latitude, longitude, place_name, found_date")
+    .eq("stone_code", "KT-000001")
+    .eq("moderation_status", "approved")
+    .order("found_date", { ascending: true });
+
+  if (error || !data || data.length === 0) {
+    return;
+  }
+
+  const map = L.map("travelMap");
+
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      attribution: "&copy; OpenStreetMap"
+    }
+  ).addTo(map);
+
+  const points = [];
+
+  data.forEach(function(finding) {
+
+    const lat = Number(finding.latitude);
+    const lng = Number(finding.longitude);
+
+    points.push([lat, lng]);
+
+    L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup(finding.place_name);
+
+  });
+
+  L.polyline(points, {
+    color: "#2e8b57",
+    weight: 4
+  }).addTo(map);
+
+  map.fitBounds(points, {
+    padding: [30, 30]
+  });
+
+}
 loadTravelHistory();
 loadStatistics();
+loadTravelMap();
 
 
 const photoInput =
