@@ -280,31 +280,118 @@ async function generateUniqueStoneCode() {
     "Nie udało się wygenerować wolnego kodu kamienia."
   );
 }
-async function createStonePassport() {
-  try {
 
+
+
+async function createStonePassport() {
+  const stonePhoto =
+    document.getElementById("stonePhoto").files[0] || null;
+
+  const stoneName =
+    document.getElementById("stoneName").value.trim();
+
+  const birthPlace =
+    document.getElementById("birthPlace").value.trim();
+
+  const birthDate =
+    document.getElementById("birthDate").value;
+
+  const country =
+    document.getElementById("country").value.trim();
+
+  const creatorName =
+    document.getElementById("creatorName").value.trim();
+
+  const story =
+    document.getElementById("stoneDescription").value.trim();
+
+  const createButton =
+    document.getElementById("createStoneButton");
+
+  if (!stoneName) {
+    showAdminMessage("Podaj nazwę kamyszka.");
+    return;
+  }
+
+  if (!birthPlace) {
+    showAdminMessage("Podaj miejsce narodzin.");
+    return;
+  }
+
+  if (!birthDate) {
+    showAdminMessage("Wybierz datę narodzin.");
+    return;
+  }
+
+  if (!country) {
+    showAdminMessage("Podaj kraj.");
+    return;
+  }
+
+  if (!stonePhoto) {
+    showAdminMessage("Wybierz zdjęcie kamyszka.");
+    return;
+  }
+
+  if (createButton) {
+    createButton.disabled = true;
+    createButton.textContent = "Tworzę paszport…";
+  }
+
+  showAdminMessage("Tworzę nowy paszport…");
+
+  try {
     const stoneCode =
       await generateUniqueStoneCode();
 
-    const stoneName =
-      document.getElementById("stoneName").value.trim();
+    const formData = new FormData();
 
-    const description =
-      document.getElementById("stoneDescription").value.trim();
+    formData.append("photo", stonePhoto);
+    formData.append("stone_code", stoneCode);
 
-    const birthPlace =
-      document.getElementById("birthPlace").value.trim();
+    const uploadResponse = await fetch(
+      "https://kamyczkowytrip.pl/upload.php",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
+
+    const uploadResult =
+      await uploadResponse.json();
+
+    if (
+      !uploadResponse.ok ||
+      !uploadResult.success
+    ) {
+      throw new Error(
+        uploadResult.message ||
+        "Nie udało się wysłać zdjęcia."
+      );
+    }
+
+    const { data: sessionData } =
+      await window.supabaseClient.auth.getSession();
+
+    const moderatorEmail =
+      sessionData.session?.user?.email || null;
 
     const { error } =
       await window.supabaseClient
         .from("stones")
         .insert({
           stone_code: stoneCode,
-          name: stoneName,
-          description: description || null,
-          birth_place: birthPlace || null,
-          birth_date: new Date().toISOString().slice(0,10),
-          is_active: true
+          stone_name: stoneName,
+          story: story || null,
+          birth_date: birthDate,
+          birth_place: birthPlace,
+          country: country,
+          creator_name: creatorName || null,
+          photo_url: uploadResult.photo_url,
+          thumbnail_url: uploadResult.thumbnail_url,
+          color: null,
+          created_by: moderatorEmail,
+          status: "active"
         });
 
     if (error) {
@@ -312,19 +399,36 @@ async function createStonePassport() {
     }
 
     showAdminMessage(
-      "✅ Paszport utworzony.\n\nKod kamienia: " +
-      stoneCode
+      "✅ Paszport został utworzony!\n\n" +
+      "Nazwa: " + stoneName + "\n" +
+      "Kod kamyszka: " + stoneCode
     );
 
+    document.getElementById("stonePhoto").value = "";
+    document.getElementById("stoneName").value = "";
+    document.getElementById("birthPlace").value = "";
+    document.getElementById("birthDate").value = "";
+    document.getElementById("country").value = "";
+    document.getElementById("creatorName").value = "";
+    document.getElementById("stoneDescription").value = "";
   } catch (error) {
-    console.error(error);
+    console.error(
+      "Błąd tworzenia paszportu:",
+      error
+    );
 
     showAdminMessage(
       "Nie udało się utworzyć paszportu.\n\n" +
-      error.message
+      (error.message || "Nieznany błąd")
     );
+  } finally {
+    if (createButton) {
+      createButton.disabled = false;
+      createButton.textContent = "🪨 Utwórz paszport";
+    }
   }
 }
+
 async function loginModerator() {
   const email = document
     .getElementById("adminEmail")
