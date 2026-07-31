@@ -519,6 +519,8 @@ async function loadStatistics() {
 
   const distanceElement =
     document.getElementById("distanceCount");
+  const photosElement =
+  document.getElementById("photosCount");
 
   const placesLabel =
     document.getElementById("placesLabel");
