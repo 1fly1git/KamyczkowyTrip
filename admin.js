@@ -240,7 +240,46 @@ async function rejectFinding(id) {
 
 
 
+function generateStoneCode() {
+  const allowedCharacters =
+    "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 
+  let code = "";
+
+  for (let index = 0; index < 5; index++) {
+    const randomIndex = Math.floor(
+      Math.random() * allowedCharacters.length
+    );
+
+    code += allowedCharacters[randomIndex];
+  }
+
+  return code;
+}
+
+async function generateUniqueStoneCode() {
+  for (let attempt = 0; attempt < 20; attempt++) {
+    const code = generateStoneCode();
+
+    const { data, error } = await window.supabaseClient
+      .from("stones")
+      .select("id")
+      .eq("stone_code", code)
+      .maybeSingle();
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data) {
+      return code;
+    }
+  }
+
+  throw new Error(
+    "Nie udało się wygenerować wolnego kodu kamienia."
+  );
+}
 
 async function loginModerator() {
   const email = document
