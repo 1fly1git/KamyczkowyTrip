@@ -24,6 +24,7 @@ function escapeHtml(value) {
 }
 
 async function loadPendingSightings() {
+  alert("Funkcja loadPendingSightings działa");
   const container =
     document.getElementById("pendingSightings");
 
