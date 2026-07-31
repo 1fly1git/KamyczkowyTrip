@@ -357,17 +357,36 @@ if (logoutButton) {
 }
 function showStonesPanel() {
 
-  document.getElementById("stonesPanel").style.display = "block";
+  const stonesPanel =
+    document.getElementById("stonesPanel");
 
-  document.getElementById("pendingSightings").style.display = "none";
+  const sightingsPanel =
+    document.getElementById("sightingsPanel");
+
+  if (stonesPanel) {
+    stonesPanel.style.display = "block";
+  }
+
+  if (sightingsPanel) {
+    sightingsPanel.style.display = "none";
+  }
 
 }
 
 function showSightingsPanel() {
 
-  document.getElementById("stonesPanel").style.display = "none";
+  const stonesPanel =
+    document.getElementById("stonesPanel");
 
-  document.getElementById("pendingSightings").style.display = "block";
+  const sightingsPanel =
+    document.getElementById("sightingsPanel");
+
+  if (stonesPanel) {
+    stonesPanel.style.display = "none";
+  }
+
+  if (sightingsPanel) {
+    sightingsPanel.style.display = "block";
+  }
 
 }
-checkModeratorSession();
