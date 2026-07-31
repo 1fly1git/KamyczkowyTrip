@@ -274,6 +274,7 @@ const editedPlaceName = document
         place_name: editedPlaceName || currentLocation.placeName,
         comment: comment || null,
         photo_url: photoUrl,
+        thumbnail_url: thumbnailUrl,
         location_accuracy: currentLocation.accuracy,
         moderation_status: "pending"
       });
