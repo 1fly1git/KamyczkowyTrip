@@ -726,10 +726,11 @@ data.forEach(function (finding, index) {
   })
     .addTo(map)
     .bindPopup(`
-      <strong>Etap ${stageNumber}</strong><br>
-      📍 ${escapeHtml(placeName)}<br>
-      🗓️ ${findingDate}
-    `);
+  <strong>Etap ${stageNumber}</strong><br>
+  📍 ${escapeHtml(placeName)}<br>
+  🗓️ ${findingDate}
+  ${popupPhoto}
+`);
 });
 
 
