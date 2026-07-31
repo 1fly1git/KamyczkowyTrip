@@ -368,6 +368,8 @@ const showStonesButton =
 
 const showSightingsButton =
   document.getElementById("showSightingsButton");
+const createStoneButton =
+  document.getElementById("createStoneButton");
 
 if (loginButton) {
   loginButton.addEventListener(
