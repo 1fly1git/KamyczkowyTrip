@@ -149,6 +149,7 @@ function showModerationPanel(user) {
 
   document.getElementById("loggedUser").textContent =
     user.email || "Moderator";
+  loadPendingSightings();
 }
 
 async function loginModerator() {
