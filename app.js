@@ -659,18 +659,48 @@ async function loadTravelMap() {
 
   const points = [];
 
-  data.forEach(function(finding) {
+data.forEach(function (finding, index) {
+  const lat = Number(finding.latitude);
+  const lng = Number(finding.longitude);
 
-    const lat = Number(finding.latitude);
-    const lng = Number(finding.longitude);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+    return;
+  }
 
-    points.push([lat, lng]);
+  points.push([lat, lng]);
 
-    L.marker([lat, lng])
-      .addTo(map)
-      .bindPopup(finding.place_name);
+  const stageNumber = index + 1;
 
+  const stageIcon = L.divIcon({
+    className: "travel-stage-marker",
+    html: `<div>${stageNumber}</div>`,
+    iconSize: [34, 34],
+    iconAnchor: [17, 17],
+    popupAnchor: [0, -18]
   });
+
+  const placeName =
+    finding.place_name || "Nieznane miejsce";
+
+  const findingDate =
+    formatFindingDate(finding.found_date);
+
+  L.marker([lat, lng], {
+    icon: stageIcon
+  })
+    .addTo(map)
+    .bindPopup(`
+      <strong>Etap ${stageNumber}</strong><br>
+      📍 ${escapeHtml(placeName)}<br>
+      🗓️ ${findingDate}
+    `);
+});
+
+
+
+
+
+  
 
   L.polyline(points, {
     color: "#2e8b57",
