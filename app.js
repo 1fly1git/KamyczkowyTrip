@@ -409,18 +409,26 @@ async function loadTravelHistory() {
   finding.photo_url
     ? `
         <div class="history-photo">
-          <img
-            src="${escapeHtml(finding.photo_url)}"
-            alt="Zdjęcie kamyczka Stefan"
-            loading="lazy"
-            style="
-              width:100%;
-              max-width:320px;
-              display:block;
-              margin-top:12px;
-              border-radius:14px;
-            "
+          <a
+            href="${escapeHtml(finding.photo_url)}"
+            target="_blank"
+            rel="noopener noreferrer"
           >
+            <img
+              src="${escapeHtml(finding.photo_url)}"
+              alt="Zdjęcie kamyczka Stefan"
+              loading="lazy"
+              style="
+                width:140px;
+                height:105px;
+                object-fit:cover;
+                display:block;
+                margin-top:12px;
+                border-radius:12px;
+                cursor:pointer;
+              "
+            >
+          </a>
         </div>
       `
     : "";
