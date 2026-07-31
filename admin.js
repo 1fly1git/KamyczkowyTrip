@@ -324,6 +324,11 @@ const loginButton =
 
 const logoutButton =
   document.getElementById("logoutButton");
+const showStonesButton =
+  document.getElementById("showStonesButton");
+
+const showSightingsButton =
+  document.getElementById("showSightingsButton");
 
 if (loginButton) {
   loginButton.addEventListener(
