@@ -525,7 +525,8 @@ const logoutButton =
   document.getElementById("logoutButton");
 const showStonesButton =
   document.getElementById("showStonesButton");
-
+const createStoneButton =
+    document.getElementById("createStoneButton");
 const showSightingsButton =
   document.getElementById("showSightingsButton");
 const createStoneButton =
