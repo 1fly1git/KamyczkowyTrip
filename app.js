@@ -680,13 +680,33 @@ data.forEach(function (finding, index) {
 
   const stageNumber = index + 1;
 
-  const stageIcon = L.divIcon({
-    className: "travel-stage-marker",
-    html: `<div>${stageNumber}</div>`,
-    iconSize: [34, 34],
-    iconAnchor: [17, 17],
-    popupAnchor: [0, -18]
-  });
+  const safePhotoUrl = finding.photo_url
+  ? escapeHtml(finding.photo_url)
+  : "";
+
+const markerContent = safePhotoUrl
+  ? `
+      <div class="travel-photo-marker">
+        <img
+          src="${safePhotoUrl}"
+          alt="Etap ${stageNumber}"
+        >
+        <span>${stageNumber}</span>
+      </div>
+    `
+  : `
+      <div class="travel-number-marker">
+        ${stageNumber}
+      </div>
+    `;
+
+const stageIcon = L.divIcon({
+  className: "travel-stage-icon",
+  html: markerContent,
+  iconSize: safePhotoUrl ? [58, 58] : [34, 34],
+  iconAnchor: safePhotoUrl ? [29, 29] : [17, 17],
+  popupAnchor: safePhotoUrl ? [0, -30] : [0, -18]
+});
 
   const placeName =
     finding.place_name || "Nieznane miejsce";
