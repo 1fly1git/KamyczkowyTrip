@@ -390,6 +390,12 @@ if (showSightingsButton) {
     showSightingsPanel
   );
 }
+if (createStoneButton) {
+  createStoneButton.addEventListener(
+    "click",
+    createStonePassport
+  );
+}
 if (logoutButton) {
   logoutButton.addEventListener(
     "click",
