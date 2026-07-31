@@ -336,7 +336,19 @@ if (loginButton) {
     loginModerator
   );
 }
+if (showStonesButton) {
+  showStonesButton.addEventListener(
+    "click",
+    showStonesPanel
+  );
+}
 
+if (showSightingsButton) {
+  showSightingsButton.addEventListener(
+    "click",
+    showSightingsPanel
+  );
+}
 if (logoutButton) {
   logoutButton.addEventListener(
     "click",
