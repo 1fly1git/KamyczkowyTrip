@@ -608,7 +608,9 @@ let photosCount = 0;
 
     placesElement.textContent = places.size;
     findersElement.textContent = finders.size;
-
+if (photosElement) {
+  photosElement.textContent = photosCount;
+}
     if (distanceElement) {
       distanceElement.textContent =
         Math.round(totalDistance) + " km";
