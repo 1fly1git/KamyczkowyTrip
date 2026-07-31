@@ -189,3 +189,60 @@ footer {
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
+
+
+.travel-stage-icon {
+  background: transparent;
+  border: none;
+}
+
+.travel-photo-marker {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border: 3px solid white;
+  border-radius: 50%;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.travel-photo-marker img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.travel-photo-marker span {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #278451;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.travel-number-marker {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: #278451;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
