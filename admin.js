@@ -544,7 +544,12 @@ if (showStonesButton) {
     showStonesPanel
   );
 }
-
+if (createStoneButton) {
+    createStoneButton.addEventListener(
+        "click",
+        createStonePassport
+    );
+}
 if (showSightingsButton) {
   showSightingsButton.addEventListener(
     "click",
