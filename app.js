@@ -542,8 +542,8 @@ async function loadStatistics() {
     const { data, error } = await window.supabaseClient
       .from("sightings")
       .select(
-        "place_name, finder_name, latitude, longitude, found_date"
-      )
+  "place_name, finder_name, latitude, longitude, found_date, photo_url"
+)
       .eq("stone_code", "KT-000001")
       .eq("moderation_status", "approved")
       .order("found_date", { ascending: true });
