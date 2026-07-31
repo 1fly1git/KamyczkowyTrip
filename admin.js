@@ -280,7 +280,51 @@ async function generateUniqueStoneCode() {
     "Nie udało się wygenerować wolnego kodu kamienia."
   );
 }
+async function createStonePassport() {
+  try {
 
+    const stoneCode =
+      await generateUniqueStoneCode();
+
+    const stoneName =
+      document.getElementById("stoneName").value.trim();
+
+    const description =
+      document.getElementById("stoneDescription").value.trim();
+
+    const birthPlace =
+      document.getElementById("birthPlace").value.trim();
+
+    const { error } =
+      await window.supabaseClient
+        .from("stones")
+        .insert({
+          stone_code: stoneCode,
+          name: stoneName,
+          description: description || null,
+          birth_place: birthPlace || null,
+          birth_date: new Date().toISOString().slice(0,10),
+          is_active: true
+        });
+
+    if (error) {
+      throw error;
+    }
+
+    showAdminMessage(
+      "✅ Paszport utworzony.\n\nKod kamienia: " +
+      stoneCode
+    );
+
+  } catch (error) {
+    console.error(error);
+
+    showAdminMessage(
+      "Nie udało się utworzyć paszportu.\n\n" +
+      error.message
+    );
+  }
+}
 async function loginModerator() {
   const email = document
     .getElementById("adminEmail")
