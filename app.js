@@ -646,7 +646,9 @@ async function loadTravelMap() {
 
   const { data, error } = await window.supabaseClient
     .from("sightings")
-    .select("latitude, longitude, place_name, found_date")
+    .select(
+  "latitude, longitude, place_name, found_date, photo_url"
+)
     .eq("stone_code", "KT-000001")
     .eq("moderation_status", "approved")
     .order("found_date", { ascending: true });
