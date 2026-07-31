@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Panel moderatora – KamyczkowyTrip</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    defer
+  ></script>
+
+  <script src="supabase.js" defer></script>
+  <script src="admin.js" defer></script>
+</head>
+
+<body>
+  <main class="page">
+    <div class="brand">
+      🪨 KamyczkowyTrip
+    </div>
+
+    <section class="card">
+      <h1>Panel moderatora</h1>
+
+      <p>
+        Zaloguj się, aby zarządzać zgłoszeniami.
+      </p>
+
+      <div id="loginPanel">
+        <label for="adminEmail">
+          <strong>Adres e-mail</strong>
+        </label>
+
+        <input
+          id="adminEmail"
+          type="email"
+          autocomplete="email"
+          style="
+            width:100%;
+            box-sizing:border-box;
+            padding:12px;
+            margin-top:6px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:10px;
+          "
+        >
+
+        <label for="adminPassword">
+          <strong>Hasło</strong>
+        </label>
+
+        <input
+          id="adminPassword"
+          type="password"
+          autocomplete="current-password"
+          style="
+            width:100%;
+            box-sizing:border-box;
+            padding:12px;
+            margin-top:6px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:10px;
+          "
+        >
+
+        <button
+          id="loginButton"
+          class="button"
+          type="button"
+        >
+          🔐 Zaloguj się
+        </button>
+      </div>
+
+      <div
+        id="adminMessage"
+        class="message"
+        style="display:none;"
+      ></div>
+
+      <div
+        id="moderationPanel"
+        style="display:none;"
+      >
+        <p>
+          Zalogowano jako:
+          <strong id="loggedUser"></strong>
+        </p>
+
+        <button
+          id="logoutButton"
+          class="button"
+          type="button"
+        >
+          Wyloguj się
+        </button>
+
+        <h2>Oczekujące zgłoszenia</h2>
+
+        <div id="pendingSightings">
+          Ładuję zgłoszenia…
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
