@@ -160,7 +160,36 @@ function showModerationPanel(user) {
     user.email || "Moderator";
   loadPendingSightings();
 }
+async function approveFinding(id) {
+  if (!confirm("Czy na pewno zatwierdzić to zgłoszenie?")) {
+    return;
+  }
 
+  try {
+    const { error } =
+      await window.supabaseClient
+        .from("sightings")
+        .update({
+          moderation_status: "approved"
+        })
+        .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    showAdminMessage("✅ Zgłoszenie zostało zatwierdzone.");
+
+    loadPendingSightings();
+  } catch (error) {
+    console.error(error);
+
+    showAdminMessage(
+      "Nie udało się zatwierdzić zgłoszenia.\n\n" +
+      (error.message || "")
+    );
+  }
+}
 async function loginModerator() {
   const email = document
     .getElementById("adminEmail")
