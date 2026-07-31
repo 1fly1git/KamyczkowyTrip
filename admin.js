@@ -203,6 +203,45 @@ async function approveFinding(id) {
     );
   }
 }
+
+
+async function rejectFinding(id) {
+  if (!confirm("Czy na pewno odrzucić to zgłoszenie?")) {
+    return;
+  }
+
+  try {
+    const { error } =
+      await window.supabaseClient
+        .from("sightings")
+        .update({
+          moderation_status: "rejected"
+        })
+        .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    showAdminMessage("❌ Zgłoszenie zostało odrzucone.");
+
+    loadPendingSightings();
+  } catch (error) {
+    console.error(error);
+
+    showAdminMessage(
+      "Nie udało się odrzucić zgłoszenia.\n\n" +
+      (error.message || "")
+    );
+  }
+}
+
+
+
+
+
+
+
 async function loginModerator() {
   const email = document
     .getElementById("adminEmail")
