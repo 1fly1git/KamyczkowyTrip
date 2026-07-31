@@ -338,5 +338,19 @@ if (logoutButton) {
     logoutModerator
   );
 }
+function showStonesPanel() {
 
+  document.getElementById("stonesPanel").style.display = "block";
+
+  document.getElementById("pendingSightings").style.display = "none";
+
+}
+
+function showSightingsPanel() {
+
+  document.getElementById("stonesPanel").style.display = "none";
+
+  document.getElementById("pendingSightings").style.display = "block";
+
+}
 checkModeratorSession();
