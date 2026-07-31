@@ -119,12 +119,25 @@ async function loadPendingSightings() {
             </p>
 
             ${photo}
-            <div style="margin-top:16px;">
+            <div
+  style="
+    margin-top:16px;
+    display:flex;
+    gap:10px;
+  "
+>
   <button
     onclick="approveFinding('${finding.id}')"
     class="button"
   >
     ✅ Zatwierdź
+  </button>
+
+  <button
+    onclick="rejectFinding('${finding.id}')"
+    class="button"
+  >
+    ❌ Odrzuć
   </button>
 </div>
           </article>
