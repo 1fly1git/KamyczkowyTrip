@@ -440,7 +440,9 @@ function generateStoneCode() {
     return code;
 }
 
-
+async function createStonePassport() {
+    alert(generateStoneCode());
+}
 async function loginModerator() {
   const email = document
     .getElementById("adminEmail")
