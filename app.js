@@ -831,7 +831,7 @@ if (searchButton) {
 
         message.style.display = "block";
         message.textContent =
-            "🔍 Wyszukiwanie paszportu będzie dostępne za chwilę...";
+            "🔍 Szukam paszportu kamyczka...";
     });
 }
 
