@@ -425,7 +425,7 @@ async function loadTravelHistory() {
           >
             <img
               src="${escapeHtml(finding.photo_url)}"
-              alt="Zdjęcie kamyczka Stefan"
+              alt="Zdjęcie kamyczka"
               loading="lazy"
               style="
                 width:140px;
