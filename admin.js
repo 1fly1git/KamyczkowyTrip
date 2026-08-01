@@ -634,7 +634,15 @@ async function approveStone(id) {
     if (error) {
       throw error;
     }
-
+await fetch("https://kamyczkowytrip.pl/send-passport-email.php", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    stone_id: id
+  })
+});
     showAdminMessage(
       "✅ Kamyczek zaakceptowany.\n" +
       "Nadany kod: " + stoneCode
