@@ -910,27 +910,6 @@ if (data.photo_url) {
   });
 }
 
-if (searchButton) {
-    searchButton.addEventListener("click", function () {
-        const code = document
-            .getElementById("stoneSearchCode")
-            .value
-            .trim()
-            .toUpperCase();
-
-        const message = document.getElementById("stoneSearchMessage");
-
-        if (!code) {
-            message.style.display = "block";
-            message.textContent = "Wpisz kod kamyczka.";
-            return;
-        }
-
-        message.style.display = "block";
-        message.textContent =
-            "🔍 Szukam paszportu kamyczka...";
-    });
-}
 
 async function submitNewStone() {
   const stoneName =
