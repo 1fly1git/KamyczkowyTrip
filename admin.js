@@ -198,7 +198,15 @@ async function approveFinding(id) {
     if (error) {
       throw error;
     }
-
+await fetch("https://kamyczkowytrip.pl/send-passport-email.php", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    sighting_id: id
+  })
+});
     showAdminMessage("✅ Zgłoszenie zostało zatwierdzone.");
 
     loadPendingSightings();
