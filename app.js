@@ -669,7 +669,15 @@ async function loadTravelMap() {
     return;
   }
 
-  const map = L.map("travelMap");
+if (currentTravelMap) {
+    currentTravelMap.remove();
+    currentTravelMap = null;
+}
+
+mapElement.innerHTML = "";
+
+currentTravelMap = L.map("travelMap");
+const map = currentTravelMap;
 
   L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
