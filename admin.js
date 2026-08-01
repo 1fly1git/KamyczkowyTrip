@@ -121,7 +121,10 @@ async function loadPendingSightings() {
             <p>
               🗓️ ${escapeHtml(findingDate)}
             </p>
-
+<p>
+  💬 <strong>Komentarz:</strong><br>
+  ${comment}
+</p>
             ${photo}
             <div
   style="
