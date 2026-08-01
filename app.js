@@ -810,3 +810,28 @@ if (photoInput && photoPreview) {
   });
 
 }
+
+const searchButton = document.getElementById("searchStoneButton");
+
+if (searchButton) {
+    searchButton.addEventListener("click", function () {
+        const code = document
+            .getElementById("stoneSearchCode")
+            .value
+            .trim()
+            .toUpperCase();
+
+        const message = document.getElementById("stoneSearchMessage");
+
+        if (!code) {
+            message.style.display = "block";
+            message.textContent = "Wpisz kod kamyczka.";
+            return;
+        }
+
+        message.style.display = "block";
+        message.textContent =
+            "🔍 Wyszukiwanie paszportu będzie dostępne za chwilę...";
+    });
+}
+
