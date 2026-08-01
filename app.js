@@ -268,7 +268,7 @@ const editedPlaceName = document
     const { error } = await window.supabaseClient
       .from("sightings")
       .insert({
-        stone_code: "KT-000001",
+        stone_code: currentStoneCode,
         finder_name: finderName || "Anonimowy podróżnik",
         latitude: currentLocation.latitude,
         longitude: currentLocation.longitude,
