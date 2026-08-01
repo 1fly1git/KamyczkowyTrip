@@ -74,6 +74,68 @@
 
 </section>
     <section class="card">
+  <h2>🪨 Zgłoś nowy kamyczek</h2>
+
+  <p>
+    Wypełnij formularz. Po akceptacji otrzymasz e-mailem
+    unikalny kod kamyczka.
+  </p>
+
+  <label>Nazwa kamyczka</label><br>
+  <input type="text" id="newStoneName">
+
+  <br><br>
+
+  <label>Twórca</label><br>
+  <input type="text" id="newCreatorName">
+
+  <br><br>
+
+  <label>Adres e-mail</label><br>
+  <input type="email" id="newSubmitterEmail">
+
+  <br><br>
+
+  <label>Miejsce narodzin</label><br>
+  <input type="text" id="newBirthPlace">
+
+  <br><br>
+
+  <label>Kraj</label><br>
+  <input type="text" id="newCountry">
+
+  <br><br>
+
+  <label>Data narodzin</label><br>
+  <input type="date" id="newBirthDate">
+
+  <br><br>
+
+  <label>Historia kamyczka</label><br>
+  <textarea id="newStoneStory" rows="4"></textarea>
+
+  <br><br>
+
+  <label>Zdjęcie kamyczka</label><br>
+  <input type="file" id="newStonePhoto" accept="image/*">
+
+  <br><br>
+
+  <button
+    id="submitStoneButton"
+    class="button"
+    type="button"
+  >
+    ❤️ Wyślij do akceptacji
+  </button>
+
+  <div
+    id="submitStoneMessage"
+    class="message"
+    style="display:none;"
+  ></div>
+    </section>
+    <section class="card">
       <div class="stone">🪨</div>
 
       <h1>Stefan</h1>
