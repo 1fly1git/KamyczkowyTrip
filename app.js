@@ -873,6 +873,9 @@ if (searchButton) {
 
       message.textContent =
         "✅ Znaleziono paszport: " + data.stone_name;
+      document.getElementById("stonePassportCard").style.display = "block";
+document.getElementById("travelMapSection").style.display = "block";
+document.getElementById("travelBookSection").style.display = "block";
 
       document.getElementById("passportStoneName").textContent =
     data.stone_name || "Bez nazwy";
