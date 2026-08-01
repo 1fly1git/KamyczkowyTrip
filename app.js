@@ -843,3 +843,27 @@ async function submitNewStone() {
 document
   .getElementById("submitStoneButton")
   ?.addEventListener("click", submitNewStone);
+
+
+const toggleStoneFormButton =
+  document.getElementById("toggleStoneFormButton");
+
+const newStoneFormContainer =
+  document.getElementById("newStoneFormContainer");
+
+if (toggleStoneFormButton && newStoneFormContainer) {
+  toggleStoneFormButton.addEventListener("click", function () {
+    const isHidden =
+      newStoneFormContainer.style.display === "none";
+
+    newStoneFormContainer.style.display =
+      isHidden ? "block" : "none";
+
+    toggleStoneFormButton.textContent =
+      isHidden
+        ? "➖ Ukryj formularz"
+        : "➕ Zgłoś nowy kamyczek";
+  });
+}
+
+
