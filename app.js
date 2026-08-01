@@ -5,7 +5,7 @@ let currentLocation = {
   accuracy: null,
   placeName: ""
 };
-
+let currentStoneCode = "KT-000001";
 
 
 function showMessage(text) {
