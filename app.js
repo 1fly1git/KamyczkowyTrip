@@ -385,14 +385,19 @@ async function loadTravelHistory() {
       throw error;
     }
 
-    if (!data || data.length === 0) {
-      historyContainer.innerHTML = `
-        <div class="empty-history">
-          `${document.getElementById("passportStoneName")?.textContent || "Ten kamyczek"} nie ma jeszcze zatwierdzonych wpisów.`
-        </div>
-      `;
-      return;
-    }
+  if (!data || data.length === 0) {
+  const stoneName =
+    document.getElementById("passportStoneName")?.textContent ||
+    "Ten kamyczek";
+
+  historyContainer.innerHTML = `
+    <div class="empty-history">
+      ${escapeHtml(stoneName)} nie ma jeszcze zatwierdzonych wpisów.
+    </div>
+  `;
+
+  return;
+}
 
     historyContainer.innerHTML = data
       .map(function (finding) {
