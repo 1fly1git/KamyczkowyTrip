@@ -836,10 +836,179 @@ if (searchButton) {
 }
 
 async function submitNewStone() {
+  const stoneName =
+    document.getElementById("newStoneName").value.trim();
 
-    showMessage("Funkcja będzie dostępna za chwilę 🙂");
+  const creatorName =
+    document.getElementById("newCreatorName").value.trim();
 
+  const submitterEmail =
+    document.getElementById("newSubmitterEmail").value.trim();
+
+  const birthPlace =
+    document.getElementById("newBirthPlace").value.trim();
+
+  const country =
+    document.getElementById("newCountry").value.trim();
+
+  const birthDate =
+    document.getElementById("newBirthDate").value;
+
+  const story =
+    document.getElementById("newStoneStory").value.trim();
+
+  const stonePhoto =
+    document.getElementById("newStonePhoto").files[0] || null;
+
+  const message =
+    document.getElementById("submitStoneMessage");
+
+  const submitButton =
+    document.getElementById("submitStoneButton");
+
+  function showSubmitMessage(text) {
+    if (!message) {
+      alert(text);
+      return;
+    }
+
+    message.textContent = text;
+    message.style.display = "block";
+  }
+
+  if (!stoneName) {
+    showSubmitMessage("Podaj nazwę kamyczka.");
+    return;
+  }
+
+  if (!creatorName) {
+    showSubmitMessage("Podaj imię lub nick twórcy.");
+    return;
+  }
+
+  if (!submitterEmail) {
+    showSubmitMessage("Podaj adres e-mail.");
+    return;
+  }
+
+  if (!submitterEmail.includes("@")) {
+    showSubmitMessage("Podaj poprawny adres e-mail.");
+    return;
+  }
+
+  if (!birthPlace) {
+    showSubmitMessage("Podaj miejsce narodzin.");
+    return;
+  }
+
+  if (!country) {
+    showSubmitMessage("Podaj kraj.");
+    return;
+  }
+
+  if (!birthDate) {
+    showSubmitMessage("Wybierz datę narodzin.");
+    return;
+  }
+
+  if (!stonePhoto) {
+    showSubmitMessage("Dodaj zdjęcie kamyczka.");
+    return;
+  }
+
+  if (!window.supabaseClient) {
+    showSubmitMessage("Brak połączenia z bazą danych.");
+    return;
+  }
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Wysyłanie…";
+  }
+
+  showSubmitMessage("Wysyłam zgłoszenie…");
+
+  try {
+    const temporaryUploadCode =
+      "pending_" + Date.now();
+
+    const formData = new FormData();
+
+    formData.append("photo", stonePhoto);
+    formData.append("stone_code", temporaryUploadCode);
+
+    const uploadResponse = await fetch(
+      "https://kamyczkowytrip.pl/upload.php",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
+
+    const uploadResult =
+      await uploadResponse.json();
+
+    if (
+      !uploadResponse.ok ||
+      !uploadResult.success
+    ) {
+      throw new Error(
+        uploadResult.message ||
+        "Nie udało się wysłać zdjęcia."
+      );
+    }
+
+    const { error } =
+      await window.supabaseClient
+        .from("stones")
+        .insert({
+          stone_code: null,
+          stone_name: stoneName,
+          story: story || null,
+          birth_date: birthDate,
+          birth_place: birthPlace,
+          country: country,
+          creator_name: creatorName,
+          submitter_email: submitterEmail,
+          photo_url: uploadResult.photo_url,
+          thumbnail_url: uploadResult.thumbnail_url,
+          moderation_status: "pending",
+          status: false
+        });
+
+    if (error) {
+      throw error;
+    }
+
+    showSubmitMessage(
+      "✅ Zgłoszenie zostało wysłane.\n" +
+      "Po zaakceptowaniu otrzymasz kod kamyczka na podany adres e-mail."
+    );
+
+    document.getElementById("newStoneName").value = "";
+    document.getElementById("newCreatorName").value = "";
+    document.getElementById("newSubmitterEmail").value = "";
+    document.getElementById("newBirthPlace").value = "";
+    document.getElementById("newCountry").value = "";
+    document.getElementById("newBirthDate").value = "";
+    document.getElementById("newStoneStory").value = "";
+    document.getElementById("newStonePhoto").value = "";
+  } catch (error) {
+    console.error("Błąd zgłoszenia kamyczka:", error);
+
+    showSubmitMessage(
+      "Nie udało się wysłać zgłoszenia.\n" +
+      (error.message || "Nieznany błąd")
+    );
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "❤️ Wyślij do akceptacji";
+    }
+  }
 }
+
+
 document
   .getElementById("submitStoneButton")
   ?.addEventListener("click", submitNewStone);
