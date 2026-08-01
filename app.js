@@ -388,7 +388,7 @@ async function loadTravelHistory() {
     if (!data || data.length === 0) {
       historyContainer.innerHTML = `
         <div class="empty-history">
-          Stefan nie ma jeszcze zatwierdzonych wpisów.
+          `${document.getElementById("passportStoneName")?.textContent || "Ten kamyczek"} nie ma jeszcze zatwierdzonych wpisów.`
         </div>
       `;
       return;
