@@ -193,7 +193,7 @@ async function saveFinding() {
     currentLocation.longitude === null
   ) {
     showMessage(
-      "Najpierw pobierz lokalizację przyciskiem „Znalazłem Stefana”."
+      "Najpierw pobierz lokalizację przyciskiem „Znalazłem kamyczek”."
     );
     return;
   }
