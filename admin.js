@@ -171,6 +171,7 @@ function showModerationPanel(user) {
 
   document.getElementById("loggedUser").textContent =
     user.email || "Moderator";
+  loadPendingStones();
   loadPendingSightings();
 }
 async function approveFinding(id) {
