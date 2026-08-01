@@ -811,7 +811,62 @@ if (photoInput && photoPreview) {
 
 }
 
-const searchButton = document.getElementById("searchStoneButton");
+const searchButton =
+  document.getElementById("searchStoneButton");
+
+if (searchButton) {
+  searchButton.addEventListener("click", async function () {
+    const code = document
+      .getElementById("stoneSearchCode")
+      .value
+      .trim()
+      .toUpperCase();
+
+    const message =
+      document.getElementById("stoneSearchMessage");
+
+    if (!code) {
+      message.style.display = "block";
+      message.textContent = "Wpisz kod kamyczka.";
+      return;
+    }
+
+    message.style.display = "block";
+    message.textContent = "🔍 Szukam paszportu kamyczka...";
+
+    try {
+      const { data, error } =
+        await window.supabaseClient
+          .from("stones")
+          .select("*")
+          .eq("stone_code", code)
+          .eq("status", true)
+          .eq("moderation_status", "approved")
+          .maybeSingle();
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data) {
+        message.textContent =
+          "Nie znaleziono aktywnego paszportu o takim kodzie.";
+        return;
+      }
+
+      message.textContent =
+        "✅ Znaleziono paszport: " + data.stone_name;
+
+      console.log("Znaleziony kamyczek:", data);
+    } catch (error) {
+      console.error("Błąd wyszukiwania paszportu:", error);
+
+      message.textContent =
+        "Nie udało się wyszukać paszportu. " +
+        (error.message || "");
+    }
+  });
+}
 
 if (searchButton) {
     searchButton.addEventListener("click", function () {
