@@ -6,6 +6,7 @@ let currentLocation = {
   placeName: ""
 };
 let currentStoneCode = "KT-000001";
+let currentTravelMap = null;
 
 
 function showMessage(text) {
