@@ -1161,6 +1161,6 @@ async function loadRanking() {
     });
 
 }
-window.addEventListener("load", function () {
+setTimeout(function () {
   loadRanking();
-});
+}, 500);
