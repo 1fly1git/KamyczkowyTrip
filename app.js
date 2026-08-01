@@ -286,7 +286,7 @@ const editedPlaceName = document
 
     showMessage(
       "❤️ Dziękujemy!\n\n" +
-      "Zgłoszenie znalezienia Stefana zostało zapisane."
+      "Zgłoszenie znalezienia kamyczka zostało zapisane."
     );
 
     document.getElementById("finderName").value = "";
