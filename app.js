@@ -1161,4 +1161,6 @@ async function loadRanking() {
     });
 
 }
-loadRanking();
+window.addEventListener("load", function () {
+  loadRanking();
+});
