@@ -376,7 +376,7 @@ async function loadTravelHistory() {
       .select(
         "finder_name, found_date, place_name, comment, moderation_status, photo_url"
       )
-      .eq("stone_code", "KT-000001")
+      .eq("stone_code", currentStoneCode)
       .eq("moderation_status", "approved")
       .order("found_date", { ascending: false });
 
@@ -555,7 +555,7 @@ async function loadStatistics() {
       .select(
   "place_name, finder_name, latitude, longitude, found_date, photo_url"
 )
-      .eq("stone_code", "KT-000001")
+      .eq("stone_code", currentStoneCode)
       .eq("moderation_status", "approved")
       .order("found_date", { ascending: true });
 
@@ -660,7 +660,7 @@ async function loadTravelMap() {
     .select(
   "latitude, longitude, place_name, found_date, photo_url"
 )
-    .eq("stone_code", "KT-000001")
+    .eq("stone_code", currentStoneCode)
     .eq("moderation_status", "approved")
     .order("found_date", { ascending: true });
 
