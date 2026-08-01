@@ -429,6 +429,161 @@ async function createStonePassport() {
   }
 }
 
+async function loadPendingStones() {
+  const container =
+    document.getElementById("pendingStones");
+
+  if (!container) {
+    return;
+  }
+
+  if (!window.supabaseClient) {
+    container.textContent =
+      "Brak połączenia z Supabase.";
+    return;
+  }
+
+  container.textContent =
+    "Ładuję zgłoszenia kamyczków...";
+
+  try {
+    const { data, error } =
+      await window.supabaseClient
+        .from("stones")
+        .select(
+          `
+          id,
+          stone_name,
+          story,
+          birth_date,
+          birth_place,
+          country,
+          creator_name,
+          submitter_email,
+          photo_url,
+          thumbnail_url,
+          moderation_status,
+          created_at
+          `
+        )
+        .eq("moderation_status", "pending")
+        .order("created_at", {
+          ascending: true
+        });
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data || data.length === 0) {
+      container.innerHTML =
+        "<p>Brak oczekujących zgłoszeń kamyczków.</p>";
+      return;
+    }
+
+    container.innerHTML = data
+      .map(function (stone) {
+        const photoUrl =
+          stone.thumbnail_url ||
+          stone.photo_url ||
+          "";
+
+        const photo = photoUrl
+          ? `
+            <img
+              src="${escapeHtml(photoUrl)}"
+              alt="Zdjęcie kamyczka"
+              loading="lazy"
+              style="
+                width:160px;
+                height:120px;
+                object-fit:cover;
+                border-radius:12px;
+                margin-top:12px;
+              "
+            >
+          `
+          : "<p>Brak zdjęcia</p>";
+
+        return `
+          <article
+            class="pending-stone"
+            style="
+              padding:16px;
+              margin:16px 0;
+              border:1px solid #ddd;
+              border-radius:14px;
+            "
+          >
+            <h3>
+              🪨 ${escapeHtml(stone.stone_name)}
+            </h3>
+
+            <p>
+              <strong>Twórca:</strong>
+              ${escapeHtml(stone.creator_name || "Nie podano")}
+            </p>
+
+            <p>
+              <strong>E-mail:</strong>
+              ${escapeHtml(stone.submitter_email || "Nie podano")}
+            </p>
+
+            <p>
+              <strong>Miejsce narodzin:</strong>
+              ${escapeHtml(stone.birth_place || "Nie podano")}
+            </p>
+
+            <p>
+              <strong>Kraj:</strong>
+              ${escapeHtml(stone.country || "Nie podano")}
+            </p>
+
+            <p>
+              <strong>Data narodzin:</strong>
+              ${escapeHtml(stone.birth_date || "Nie podano")}
+            </p>
+
+            <p>
+              <strong>Opis:</strong><br>
+              ${escapeHtml(stone.story || "Brak opisu")}
+            </p>
+
+            ${photo}
+
+            <div style="margin-top:16px;">
+              <button
+                class="button"
+                type="button"
+                onclick="approveStone(${stone.id})"
+              >
+                ✅ Akceptuj
+              </button>
+
+              <button
+                class="button"
+                type="button"
+                onclick="rejectStone(${stone.id})"
+              >
+                ❌ Odrzuć
+              </button>
+            </div>
+          </article>
+        `;
+      })
+      .join("");
+  } catch (error) {
+    console.error(
+      "Błąd pobierania zgłoszeń kamyczków:",
+      error
+    );
+
+    container.textContent =
+      "Nie udało się pobrać zgłoszeń kamyczków.";
+  }
+}
+
+
 async function loginModerator() {
   const email = document
     .getElementById("adminEmail")
