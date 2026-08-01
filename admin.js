@@ -391,7 +391,7 @@ async function createStonePassport() {
           thumbnail_url: uploadResult.thumbnail_url,
           color: null,
           created_by: moderatorEmail,
-          status: "active"
+          status: true
         });
 
     if (error) {
