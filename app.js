@@ -876,6 +876,8 @@ if (searchButton) {
 
       document.getElementById("passportStoneName").textContent =
     data.stone_name || "Bez nazwy";
+      document.getElementById("historyStoneName").textContent =
+    data.stone_name || "kamyczka";
 
 document.getElementById("passportStoneCode").textContent =
     data.stone_code || "";
