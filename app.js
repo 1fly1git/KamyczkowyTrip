@@ -1119,48 +1119,114 @@ if (toggleStoneFormButton && newStoneFormContainer) {
 }
 
 async function loadRanking() {
-    const ranking = document.getElementById("rankingList");
+  const ranking = document.getElementById("rankingList");
 
-    ranking.innerHTML = "Ładowanie...";
+  if (!ranking || !window.supabaseClient) {
+    return;
+  }
 
-    const { data, error } = await window.supabaseClient
-        .from("stones")
-        .select(`
-            stone_name,
-            total_distance,
-            places_count,
-            finders_count
-        `)
-        .eq("status", true)
-.eq("moderation_status", "approved")
-.order("total_distance", { ascending: false })
-        .limit(10);
+  ranking.innerHTML = "Ładowanie rankingu...";
 
-    if (error) {
-        ranking.innerHTML = "Nie udało się pobrać rankingu.";
-        return;
-    }
+  const { data, error } = await window.supabaseClient
+    .from("stones")
+    .select(`
+      stone_name,
+      stone_code,
+      total_distance,
+      places_count,
+      finders_count,
+      photos_count
+    `)
+    .eq("status", true)
+    .eq("moderation_status", "approved")
+    .order("total_distance", { ascending: false })
+    .limit(10);
 
-    if (!data.length) {
-        ranking.innerHTML = "Brak danych.";
-        return;
-    }
+  if (error) {
+    console.error("Błąd rankingu:", error);
+    ranking.innerHTML = "Nie udało się pobrać rankingu.";
+    return;
+  }
 
-    ranking.innerHTML = "";
+  if (!data || data.length === 0) {
+    ranking.innerHTML = "Brak danych w rankingu.";
+    return;
+  }
 
-    data.forEach((stone, index) => {
+  ranking.innerHTML = data
+    .map(function (stone, index) {
+      const medals = ["🥇", "🥈", "🥉"];
+      const position = medals[index] || `${index + 1}.`;
 
-        ranking.innerHTML += `
-            <div class="ranking-item">
-                <strong>${index + 1}. ${stone.stone_name}</strong><br>
-                📏 ${stone.total_distance} km<br>
-                📍 ${stone.places_count} miejsc<br>
-                👣 ${stone.finders_count} znalazców
+      return `
+        <button
+          type="button"
+          class="ranking-item"
+          data-stone-code="${escapeHtml(stone.stone_code || "")}"
+        >
+          <div class="ranking-position">
+            ${position}
+          </div>
+
+          <div class="ranking-content">
+            <div class="ranking-name">
+              ${escapeHtml(stone.stone_name || "Bez nazwy")}
             </div>
-        `;
-    });
 
+            <div class="ranking-code">
+              ${escapeHtml(stone.stone_code || "")}
+            </div>
+
+            <div class="ranking-stats">
+              <span>📏 ${stone.total_distance || 0} km</span>
+              <span>📍 ${stone.places_count || 0}</span>
+              <span>👣 ${stone.finders_count || 0}</span>
+              <span>📷 ${stone.photos_count || 0}</span>
+            </div>
+          </div>
+
+          <div class="ranking-arrow">
+            ›
+          </div>
+        </button>
+      `;
+    })
+    .join("");
+
+  ranking
+    .querySelectorAll(".ranking-item")
+    .forEach(function (item) {
+      item.addEventListener("click", function () {
+        const stoneCode = item.dataset.stoneCode;
+
+        if (!stoneCode) {
+          return;
+        }
+
+        const searchInput =
+          document.getElementById("stoneSearchCode");
+
+        const searchButton =
+          document.getElementById("searchStoneButton");
+
+        if (searchInput) {
+          searchInput.value = stoneCode;
+        }
+
+        if (searchButton) {
+          searchButton.click();
+        }
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+    });
 }
+
+
+
 setTimeout(function () {
   loadRanking();
 }, 500);
