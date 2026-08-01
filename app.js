@@ -1118,4 +1118,45 @@ if (toggleStoneFormButton && newStoneFormContainer) {
   });
 }
 
+async function loadRanking() {
+    const ranking = document.getElementById("rankingList");
 
+    ranking.innerHTML = "Ładowanie...";
+
+    const { data, error } = await window.supabaseClient
+        .from("stones")
+        .select(`
+            stone_name,
+            total_distance,
+            places_count,
+            finders_count
+        `)
+        .eq("status", true)
+        .order("total_distance", { ascending: false })
+        .limit(10);
+
+    if (error) {
+        ranking.innerHTML = "Nie udało się pobrać rankingu.";
+        return;
+    }
+
+    if (!data.length) {
+        ranking.innerHTML = "Brak danych.";
+        return;
+    }
+
+    ranking.innerHTML = "";
+
+    data.forEach((stone, index) => {
+
+        ranking.innerHTML += `
+            <div class="ranking-item">
+                <strong>${index + 1}. ${stone.stone_name}</strong><br>
+                📏 ${stone.total_distance} km<br>
+                📍 ${stone.places_count} miejsc<br>
+                👣 ${stone.finders_count} znalazców
+            </div>
+        `;
+    });
+
+}
