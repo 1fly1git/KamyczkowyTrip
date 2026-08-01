@@ -639,6 +639,48 @@ async function approveStone(id) {
   }
 }
 
+async function rejectStone(id) {
+  const confirmed = confirm(
+    "Czy na pewno odrzucić ten kamyczek?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+    const { error } =
+      await window.supabaseClient
+        .from("stones")
+        .update({
+          moderation_status: "rejected",
+          status: false
+        })
+        .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    showAdminMessage(
+      "❌ Kamyczek został odrzucony."
+    );
+
+    loadPendingStones();
+  } catch (error) {
+    console.error(
+      "Błąd odrzucenia kamyczka:",
+      error
+    );
+
+    showAdminMessage(
+      "Nie udało się odrzucić kamyczka.\n" +
+      (error.message || "Nieznany błąd")
+    );
+  }
+}
+
+
 
 async function loginModerator() {
   const email = document
