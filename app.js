@@ -868,6 +868,7 @@ document.getElementById("passportStoneStory").textContent =
 
 document.getElementById("foundStoneName").textContent =
     data.stone_name || "kamyczek";
+      currentStoneCode = data.stone_code;
 
 if (data.photo_url) {
     document.getElementById("passportStonePhoto").innerHTML =
