@@ -75,6 +75,10 @@ async function loadPendingSightings() {
                 finding.finding_date
               ).toLocaleDateString("pl-PL")
             : "Brak daty";
+        const comment =
+  finding.comment
+    ? escapeHtml(finding.comment)
+    : "Brak komentarza";
 
         const photo = finding.photo_url
           ? `
