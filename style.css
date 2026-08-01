@@ -246,3 +246,69 @@ footer {
   font-weight: bold;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
+
+
+#rankingList {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.ranking-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #e4e4e4;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #222222;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.ranking-item:active {
+  transform: scale(0.98);
+}
+
+.ranking-position {
+  min-width: 42px;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.ranking-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ranking-name {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.ranking-code {
+  margin-top: 3px;
+  font-size: 13px;
+  color: #777777;
+  letter-spacing: 1px;
+}
+
+.ranking-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #444444;
+}
+
+.ranking-arrow {
+  font-size: 32px;
+  color: #25834f;
+  font-weight: 700;
+}
