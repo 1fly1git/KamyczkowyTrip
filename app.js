@@ -835,3 +835,11 @@ if (searchButton) {
     });
 }
 
+async function submitNewStone() {
+
+    showMessage("Funkcja będzie dostępna za chwilę 🙂");
+
+}
+document
+  .getElementById("submitStoneButton")
+  ?.addEventListener("click", submitNewStone);
