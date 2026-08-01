@@ -1160,3 +1160,4 @@ async function loadRanking() {
     });
 
 }
+loadRanking();
