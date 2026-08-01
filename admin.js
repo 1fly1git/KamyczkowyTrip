@@ -585,6 +585,61 @@ async function loadPendingStones() {
 }
 
 
+async function approveStone(id) {
+  const confirmed = confirm(
+    "Czy na pewno zaakceptować ten kamyczek?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+    const stoneCode =
+      await generateUniqueStoneCode();
+
+    const { data: sessionData } =
+      await window.supabaseClient.auth.getSession();
+
+    const moderatorEmail =
+      sessionData.session?.user?.email || null;
+
+    const { error } =
+      await window.supabaseClient
+        .from("stones")
+        .update({
+          stone_code: stoneCode,
+          moderation_status: "approved",
+          status: true,
+          approved_at: new Date().toISOString(),
+          approved_by: moderatorEmail
+        })
+        .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    showAdminMessage(
+      "✅ Kamyczek zaakceptowany.\n" +
+      "Nadany kod: " + stoneCode
+    );
+
+    loadPendingStones();
+  } catch (error) {
+    console.error(
+      "Błąd akceptacji kamyczka:",
+      error
+    );
+
+    showAdminMessage(
+      "Nie udało się zaakceptować kamyczka.\n" +
+      (error.message || "Nieznany błąd")
+    );
+  }
+}
+
+
 async function loginModerator() {
   const email = document
     .getElementById("adminEmail")
