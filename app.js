@@ -236,7 +236,7 @@ const editedPlaceName = document
       const formData = new FormData();
 
       formData.append("photo", photoFile);
-      formData.append("stone_code", "KT-000001");
+      formData.append("stone_code", currentStoneCode);
 
       const uploadResponse = await fetch(
         "https://kamyczkowytrip.pl/upload.php",
