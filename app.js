@@ -802,9 +802,6 @@ const stageIcon = L.divIcon({
   });
 
 }
-loadTravelHistory();
-loadStatistics();
-loadTravelMap();
 
 
 const photoInput =
