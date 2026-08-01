@@ -665,9 +665,17 @@ async function loadTravelMap() {
     .eq("moderation_status", "approved")
     .order("found_date", { ascending: true });
 
-  if (error || !data || data.length === 0) {
+if (error || !data || data.length === 0) {
+    if (currentTravelMap) {
+        currentTravelMap.remove();
+        currentTravelMap = null;
+    }
+
+    mapElement.innerHTML =
+        "<p>Ten kamyczek nie ma jeszcze zatwierdzonych punktów na mapie.</p>";
+
     return;
-  }
+}
 
 if (currentTravelMap) {
     currentTravelMap.remove();
