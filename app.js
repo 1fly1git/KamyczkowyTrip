@@ -857,6 +857,25 @@ if (searchButton) {
       message.textContent =
         "✅ Znaleziono paszport: " + data.stone_name;
 
+      document.getElementById("passportStoneName").textContent =
+    data.stone_name || "Bez nazwy";
+
+document.getElementById("passportStoneCode").textContent =
+    data.stone_code || "";
+
+document.getElementById("passportStoneStory").textContent =
+    data.story || "Ten kamyczek nie ma jeszcze historii.";
+
+document.getElementById("foundStoneName").textContent =
+    data.stone_name || "kamyczek";
+
+if (data.photo_url) {
+    document.getElementById("passportStonePhoto").innerHTML =
+        `<img src="${data.photo_url}" style="width:140px;height:140px;border-radius:50%;object-fit:cover;">`;
+} else {
+    document.getElementById("passportStonePhoto").textContent = "🪨";
+}
+
       console.log("Znaleziony kamyczek:", data);
     } catch (error) {
       console.error("Błąd wyszukiwania paszportu:", error);
