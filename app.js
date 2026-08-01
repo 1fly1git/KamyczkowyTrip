@@ -1132,7 +1132,8 @@ async function loadRanking() {
             finders_count
         `)
         .eq("status", true)
-        .order("total_distance", { ascending: false })
+.eq("moderation_status", "approved")
+.order("total_distance", { ascending: false })
         .limit(10);
 
     if (error) {
