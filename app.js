@@ -1217,10 +1217,17 @@ async function loadRanking() {
           searchButton.click();
         }
 
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
+        setTimeout(function () {
+  const passportCard =
+    document.getElementById("stonePassportCard");
+
+  if (passportCard) {
+    passportCard.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+}, 500);
       });
     });
 }
