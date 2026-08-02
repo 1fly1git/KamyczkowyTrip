@@ -1829,3 +1829,19 @@ async function loadStoneGallery() {
     });
 }
 loadStoneGallery();
+
+
+const backToGalleryButton = document.getElementById("backToGalleryButton");
+
+if (backToGalleryButton) {
+    backToGalleryButton.addEventListener("click", function () {
+        const gallery = document.getElementById("stoneGallery");
+
+        if (gallery) {
+            gallery.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+    });
+}
