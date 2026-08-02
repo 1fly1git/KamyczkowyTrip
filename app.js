@@ -1901,3 +1901,28 @@ window.addEventListener("load", function () {
     }
   );
 });
+
+const imageViewer =
+  document.getElementById("imageViewer");
+
+const closeImageViewer =
+  document.getElementById("closeImageViewer");
+
+function closeFullImage() {
+  if (imageViewer) {
+    imageViewer.style.display = "none";
+  }
+}
+
+if (closeImageViewer) {
+  closeImageViewer.addEventListener("click", closeFullImage);
+}
+
+if (imageViewer) {
+  imageViewer.addEventListener("click", function (event) {
+    if (event.target === imageViewer) {
+      closeFullImage();
+    }
+  });
+}
+
