@@ -1502,9 +1502,9 @@ async function saveStoneRating(rating) {
     await window.supabaseClient
       .from("stone_ratings")
       .select("id")
-      .eq("stone_code", currentStoneCode)
-      .eq("voter_id", voterId)
-      .maybeSingle();
+.eq("stone_code", currentStoneCode)
+.eq("device_fingerprint", deviceFingerprint)
+.maybeSingle();
 
   if (existingRating) {
 
