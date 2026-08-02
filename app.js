@@ -1382,16 +1382,16 @@ ratingStars.forEach(function (star) {
     await saveStoneRating(rating);
 
     ratingStars.forEach(function (item) {
+  const starValue = Number(item.dataset.rating);
 
-      item.classList.remove("active");
-
-      if (
-        Number(item.dataset.rating) <= rating
-      ) {
-        item.classList.add("active");
-      }
-
-    });
+  if (starValue <= rating) {
+    item.classList.add("active");
+    item.textContent = "★";
+  } else {
+    item.classList.remove("active");
+    item.textContent = "☆";
+  }
+});
 
   });
 
