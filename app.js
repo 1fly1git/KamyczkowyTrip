@@ -1655,7 +1655,13 @@ async function loadStoneGallery() {
   const galleryList =
     document.getElementById("galleryList");
 
-  if (!galleryList || !window.supabaseClient) {
+  if (!galleryList) {
+    return;
+  }
+
+  if (!window.supabaseClient) {
+    galleryList.innerHTML =
+      "Brak połączenia z Supabase.";
     return;
   }
 
