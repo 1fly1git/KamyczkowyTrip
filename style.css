@@ -331,3 +331,39 @@ footer {
   object-fit: cover;
   display: block;
 }
+
+.rating-box{
+    margin:20px 0;
+    text-align:center;
+}
+
+.rating-stars{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:15px 0;
+}
+
+.rating-stars span{
+    font-size:52px;
+    line-height:1;
+    cursor:pointer;
+    user-select:none;
+    padding:8px;
+    transition:.2s;
+}
+
+.rating-stars span:hover{
+    transform:scale(1.15);
+}
+
+.rating-stars span.active{
+    color:#ffc107;
+}
+
+#stoneRatingInfo{
+    margin-top:10px;
+    color:#666;
+    font-size:15px;
+}
+
