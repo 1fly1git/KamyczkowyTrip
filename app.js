@@ -10,6 +10,8 @@ let currentTravelMap = null;
 
 let voterId = null;
 let deviceFingerprint = null;
+let galleryOffset = 0;
+const galleryLimit = 9;
 
 async function initializeVotingIdentity() {
   try {
