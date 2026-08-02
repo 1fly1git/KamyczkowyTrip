@@ -1556,9 +1556,9 @@ async function loadMyStoneRating() {
     await window.supabaseClient
       .from("stone_ratings")
       .select("rating")
-      .eq("stone_code", currentStoneCode)
-      .eq("voter_id", voterId)
-      .maybeSingle();
+.eq("stone_code", currentStoneCode)
+.eq("device_fingerprint", deviceFingerprint)
+.maybeSingle();
 
   if (error) {
     console.error(
