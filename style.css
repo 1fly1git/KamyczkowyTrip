@@ -366,4 +366,9 @@ footer {
     color:#666;
     font-size:15px;
 }
-
+.average-stars {
+  margin-bottom: 6px;
+  color: #ffc107;
+  font-size: 28px;
+  letter-spacing: 3px;
+}
