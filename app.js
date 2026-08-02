@@ -904,6 +904,23 @@ document.getElementById("passportStoneStory").textContent =
 
 document.getElementById("foundStoneName").textContent =
     data.stone_name || "kamyczek";
+      const ratingInfo =
+  document.getElementById("stoneRatingInfo");
+
+if (ratingInfo) {
+  const average =
+    Number(data.rating_average || 0);
+
+  const count =
+    Number(data.rating_count || 0);
+
+  if (count === 0) {
+    ratingInfo.textContent = "Brak ocen";
+  } else {
+    ratingInfo.textContent =
+      `Średnia: ${average.toFixed(2)} / 5 (${count} ocen)`;
+  }
+}
       currentStoneCode = data.stone_code;
       loadTravelHistory();
 loadStatistics();
