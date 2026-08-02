@@ -384,8 +384,8 @@ footer {
 
 #galleryList{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
     margin-top:20px;
 }
 
@@ -407,7 +407,7 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
 
 .gallery-photo{
     width:100%;
-    height:260px;
+    height:140px;
     overflow:hidden;
     background:#f3f3f3;
 }
@@ -420,12 +420,12 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
 }
 
 .gallery-content{
-    padding:15px;
+    padding:10px;
     text-align:center;
 }
 
 .gallery-name{
-    font-size:22px;
+    font-size:17px;
     font-weight:bold;
     margin-bottom:8px;
 }
