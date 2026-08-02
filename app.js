@@ -1686,7 +1686,7 @@ if (ratingRankingButton) {
     }
   );
 }
-async function loadStoneGallery() {
+async function loadStoneGallery(loadMore = false) {
   const galleryList =
     document.getElementById("galleryList");
 
@@ -1700,8 +1700,10 @@ async function loadStoneGallery() {
     return;
   }
 
-  galleryList.innerHTML =
-    "Ładowanie galerii...";
+  if (!loadMore) {
+  galleryOffset = 0;
+  galleryList.innerHTML = "Ładowanie galerii...";
+  }
 
   const { data, error } =
     await window.supabaseClient
