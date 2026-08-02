@@ -572,3 +572,81 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
     line-height: 1;
     pointer-events: none;
 }
+/* ===== KOMPAKTOWY RANKING ===== */
+
+.ranking-item{
+    position:relative;
+    display:grid;
+    grid-template-columns:80px minmax(0, 1fr) 24px;
+    align-items:center;
+    gap:10px;
+    padding:7px 12px;
+    min-height:94px;
+}
+
+.ranking-photo{
+    grid-column:1;
+    grid-row:1;
+    width:80px;
+    height:80px;
+    position:relative;
+}
+
+.ranking-photo img{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+}
+
+.ranking-position{
+    position:absolute;
+    left:68px;
+    bottom:7px;
+    z-index:2;
+
+    min-width:30px;
+    padding:2px 5px;
+    border-radius:10px;
+    background:#fff;
+    box-shadow:0 2px 7px rgba(0,0,0,.18);
+
+    font-size:20px;
+    line-height:1;
+    text-align:center;
+}
+
+.ranking-content{
+    grid-column:2;
+    min-width:0;
+}
+
+.ranking-name{
+    font-size:19px;
+    line-height:1.1;
+    margin-bottom:2px;
+}
+
+.ranking-code{
+    margin-top:0;
+    margin-bottom:5px;
+    font-size:14px;
+    line-height:1;
+}
+
+.ranking-stats{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:nowrap;
+    white-space:nowrap;
+    font-size:14px;
+    line-height:1;
+}
+
+.ranking-arrow{
+    grid-column:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    align-self:stretch;
+}
