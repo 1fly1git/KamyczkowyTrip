@@ -1314,7 +1314,54 @@ setTimeout(function () {
   loadRanking();
 }, 500);
 
+async function loadMyStoneRating() {
+  const ratingStars =
+    document.querySelectorAll(
+      "#stoneRatingStars span"
+    );
 
+  ratingStars.forEach(function (star) {
+    star.classList.remove("active");
+  });
+
+  if (
+    !window.supabaseClient ||
+    !currentStoneCode ||
+    !voterId
+  ) {
+    return;
+  }
+
+  const { data, error } =
+    await window.supabaseClient
+      .from("stone_ratings")
+      .select("rating")
+      .eq("stone_code", currentStoneCode)
+      .eq("voter_id", voterId)
+      .maybeSingle();
+
+  if (error) {
+    console.error(
+      "Błąd pobierania własnej oceny:",
+      error
+    );
+    return;
+  }
+
+  if (!data) {
+    return;
+  }
+
+  const savedRating = Number(data.rating);
+
+  ratingStars.forEach(function (star) {
+    if (
+      Number(star.dataset.rating) <= savedRating
+    ) {
+      star.classList.add("active");
+    }
+  });
+}
 const ratingStars =
   document.querySelectorAll(
     "#stoneRatingStars span"
