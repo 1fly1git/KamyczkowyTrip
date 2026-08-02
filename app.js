@@ -1497,6 +1497,10 @@ async function saveStoneRating(rating) {
   if (!window.supabaseClient) {
     return;
   }
+  if (!deviceFingerprint) {
+  alert("Identyfikator głosowania jeszcze się ładuje. Spróbuj ponownie za chwilę.");
+  return;
+  }
 
   const { data: existingRating } =
     await window.supabaseClient
