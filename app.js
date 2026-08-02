@@ -1719,7 +1719,7 @@ async function loadStoneGallery() {
       .order("created_at", {
   ascending: false
 })
-      .limit(12);
+      .limit(9);
 
   if (error) {
     console.error(
