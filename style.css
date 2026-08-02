@@ -435,11 +435,6 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
     margin-bottom:8px;
 }
 
-.gallery-rating,
-.gallery-stats{
-    margin-bottom:6px;
-}
-
 .gallery-open{
     margin-top:12px;
     display:inline-block;
