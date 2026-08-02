@@ -451,9 +451,17 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
 }
 
 .gallery-stats{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
     color:#666;
-    font-size:15px;
+    font-size:14px;
     margin-top:6px;
+}
+
+.gallery-stats span{
+    white-space:nowrap;
 }
 
 .gallery-item *{
