@@ -1296,3 +1296,34 @@ async function saveStoneRating(rating) {
 setTimeout(function () {
   loadRanking();
 }, 500);
+
+
+const ratingStars =
+  document.querySelectorAll(
+    "#stoneRatingStars span"
+  );
+
+ratingStars.forEach(function (star) {
+
+  star.addEventListener("click", async function () {
+
+    const rating =
+      Number(this.dataset.rating);
+
+    await saveStoneRating(rating);
+
+    ratingStars.forEach(function (item) {
+
+      item.classList.remove("active");
+
+      if (
+        Number(item.dataset.rating) <= rating
+      ) {
+        item.classList.add("active");
+      }
+
+    });
+
+  });
+
+});
