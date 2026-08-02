@@ -1808,15 +1808,21 @@ async function loadStoneGallery() {
           }
 
           if (searchButton) {
+  const backButton =
+    document.getElementById("backToGalleryButton");
 
-    const backButton =
-        document.getElementById("backToGalleryButton");
+  const stoneGallery =
+    document.getElementById("stoneGallery");
 
-    if (backButton) {
-        backButton.style.display = "inline-block";
-    }
+  if (backButton) {
+    backButton.style.display = "inline-block";
+  }
 
-    searchButton.click();
+  if (stoneGallery) {
+    stoneGallery.style.display = "none";
+  }
+
+  searchButton.click();
           }
 
           setTimeout(function () {
