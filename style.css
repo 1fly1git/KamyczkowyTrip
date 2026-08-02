@@ -250,7 +250,7 @@ footer {
 
 #rankingList {
   display: grid;
-  gap: 12px;
+  gap: 8px;
   margin-top: 18px;
 }
 
@@ -258,10 +258,10 @@ footer {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px;
+  gap: 10px;
+  padding: 10px 12px;
   border: 1px solid #e4e4e4;
-  border-radius: 16px;
+  border-radius: 14px;
   background: #ffffff;
   color: #222222;
   text-align: left;
@@ -274,8 +274,8 @@ footer {
 }
 
 .ranking-position {
-  min-width: 42px;
-  font-size: 28px;
+  min-width: 36px;
+  font-size: 24px;
   font-weight: 700;
   text-align: center;
 }
