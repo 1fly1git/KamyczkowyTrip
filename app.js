@@ -914,12 +914,29 @@ if (ratingInfo) {
   const count =
     Number(data.rating_count || 0);
 
-  if (count === 0) {
-    ratingInfo.textContent = "Brak ocen";
-  } else {
-    ratingInfo.textContent =
-      `Średnia: ${average.toFixed(2)} / 5 (${count} ocen)`;
+if (count === 0) {
+  ratingInfo.textContent = "Brak ocen";
+} else {
+  const roundedAverage = Math.round(average);
+
+  let averageStars = "";
+
+  for (let index = 1; index <= 5; index++) {
+    averageStars +=
+      index <= roundedAverage ? "★" : "☆";
   }
+
+  ratingInfo.innerHTML = `
+    <div class="average-stars">
+      ${averageStars}
+    </div>
+
+    <div>
+      Średnia: ${average.toFixed(2)} / 5 (${count} ocen)
+    </div>
+  `;
+}
+  
 }
       currentStoneCode = data.stone_code;
       loadMyStoneRating();
