@@ -1808,7 +1808,15 @@ async function loadStoneGallery() {
           }
 
           if (searchButton) {
-            searchButton.click();
+
+    const backButton =
+        document.getElementById("backToGalleryButton");
+
+    if (backButton) {
+        backButton.style.display = "inline-block";
+    }
+
+    searchButton.click();
           }
 
           setTimeout(function () {
