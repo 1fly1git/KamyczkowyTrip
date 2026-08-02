@@ -1770,10 +1770,10 @@ async function loadStoneGallery() {
   })
 </div>
 
-            <div class="gallery-stats">
-              📏 ${stone.total_distance || 0} km
-              · 📍 ${stone.places_count || 0} miejsc
-            </div>
+          <div class="gallery-stats">
+    <span>📏 ${stone.total_distance || 0} km</span>
+    <span>📍 ${stone.places_count || 0} miejsc</span>
+</div>
           </div>
         </button>
       `;
