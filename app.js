@@ -1857,14 +1857,27 @@ window.addEventListener("load", function () {
       const gallery =
         document.getElementById("stoneGallery");
 
-      if (!gallery) {
-        return;
+      const passport =
+        document.getElementById("stonePassportCard");
+
+      if (gallery) {
+        gallery.style.display = "block";
       }
 
-      gallery.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      if (passport) {
+        passport.style.display = "none";
+      }
+
+      backToGalleryButton.style.display = "none";
+
+      setTimeout(function () {
+        if (gallery) {
+          gallery.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      }, 100);
     }
   );
 });
