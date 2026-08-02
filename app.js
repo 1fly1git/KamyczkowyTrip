@@ -1519,11 +1519,12 @@ async function saveStoneRating(rating) {
 
     await window.supabaseClient
       .from("stone_ratings")
-      .insert({
-        stone_code: currentStoneCode,
-        rating: rating,
-        voter_id: voterId
-      });
+    .insert({
+    stone_code: currentStoneCode,
+    rating: rating,
+    voter_id: voterId,
+    device_fingerprint: deviceFingerprint
+});
 
   }
 
