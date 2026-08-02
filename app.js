@@ -1841,7 +1841,13 @@ if (loadMoreButton) {
   galleryList
     .querySelectorAll(".gallery-item")
     .forEach(function (item) {
-      item.addEventListener(
+  if (item.dataset.clickReady === "true") {
+    return;
+  }
+
+  item.dataset.clickReady = "true";
+
+  item.addEventListener(
         "click",
         function () {
           const stoneCode =
