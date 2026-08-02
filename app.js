@@ -1907,6 +1907,23 @@ if (loadMoreButton) {
     });
 }
 loadStoneGallery();
+const loadMoreGalleryButton =
+  document.getElementById("loadMoreGalleryButton");
+
+if (loadMoreGalleryButton) {
+  loadMoreGalleryButton.addEventListener(
+    "click",
+    async function () {
+      loadMoreGalleryButton.disabled = true;
+      loadMoreGalleryButton.textContent = "Ładowanie...";
+
+      await loadStoneGallery(true);
+
+      loadMoreGalleryButton.disabled = false;
+      loadMoreGalleryButton.textContent = "⬇️ Pokaż więcej";
+    }
+  );
+}
 window.addEventListener("load", function () {
   const backToGalleryButton =
     document.getElementById("backToGalleryButton");
