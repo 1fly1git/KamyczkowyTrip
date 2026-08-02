@@ -372,3 +372,9 @@ footer {
   font-size: 28px;
   letter-spacing: 3px;
 }
+.owner {
+    font-size: 18px;
+    color: #666;
+    margin-top: 6px;
+    margin-bottom: 10px;
+}
