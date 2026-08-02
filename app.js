@@ -1819,6 +1819,24 @@ async function loadStoneGallery(loadMore = false) {
       `;
     })
     .join("");
+  if (loadMore) {
+  galleryList.insertAdjacentHTML(
+    "beforeend",
+    galleryHtml
+  );
+} else {
+  galleryList.innerHTML = galleryHtml;
+}
+
+galleryOffset += data.length;
+
+const loadMoreButton =
+  document.getElementById("loadMoreGalleryButton");
+
+if (loadMoreButton) {
+  loadMoreButton.style.display =
+    data.length < galleryLimit ? "none" : "block";
+}
 
   galleryList
     .querySelectorAll(".gallery-item")
