@@ -1908,21 +1908,43 @@ const imageViewer =
 const closeImageViewer =
   document.getElementById("closeImageViewer");
 
+const fullImage =
+  document.getElementById("fullImage");
+
 function closeFullImage() {
-  if (imageViewer) {
-    imageViewer.style.display = "none";
+  if (!imageViewer) {
+    return;
+  }
+
+  imageViewer.style.display = "none";
+
+  if (fullImage) {
+    fullImage.src = "";
   }
 }
 
 if (closeImageViewer) {
-  closeImageViewer.addEventListener("click", closeFullImage);
+  closeImageViewer.addEventListener(
+    "click",
+    function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeFullImage();
+    }
+  );
 }
 
 if (imageViewer) {
-  imageViewer.addEventListener("click", function (event) {
-    if (event.target === imageViewer) {
-      closeFullImage();
+  imageViewer.addEventListener(
+    "click",
+    function (event) {
+      if (
+        event.target === imageViewer ||
+        event.target === fullImage
+      ) {
+        closeFullImage();
+      }
     }
-  });
+  );
 }
 
