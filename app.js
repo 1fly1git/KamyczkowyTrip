@@ -1431,7 +1431,13 @@ async function loadBeautyRanking() {
               </span>
 
               <span>
-                🗳️ ${count} ocen
+                🗳️ ${
+count === 1
+    ? "1 ocena"
+    : count >= 2 && count <= 4
+    ? `${count} oceny`
+    : `${count} ocen`
+                }
               </span>
             </div>
           </div>
