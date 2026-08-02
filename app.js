@@ -1584,3 +1584,35 @@ ratingStars.forEach(function (star) {
   });
 
 });
+
+const travelRankingButton =
+  document.getElementById("travelRankingButton");
+
+const ratingRankingButton =
+  document.getElementById("ratingRankingButton");
+
+if (travelRankingButton) {
+  travelRankingButton.addEventListener(
+    "click",
+    function () {
+      travelRankingButton.classList.add("active");
+
+      ratingRankingButton?.classList.remove("active");
+
+      loadRanking();
+    }
+  );
+}
+
+if (ratingRankingButton) {
+  ratingRankingButton.addEventListener(
+    "click",
+    function () {
+      ratingRankingButton.classList.add("active");
+
+      travelRankingButton?.classList.remove("active");
+
+      loadBeautyRanking();
+    }
+  );
+}
