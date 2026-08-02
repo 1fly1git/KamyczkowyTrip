@@ -1886,6 +1886,11 @@ window.addEventListener("load", function () {
 
       const passport =
         document.getElementById("stonePassportCard");
+      const travelMapSection =
+  document.getElementById("travelMapSection");
+
+const travelBookSection =
+  document.getElementById("travelBookSection");
 
       if (gallery) {
         gallery.style.display = "block";
@@ -1894,6 +1899,13 @@ window.addEventListener("load", function () {
       if (passport) {
         passport.style.display = "none";
       }
+      if (travelMapSection) {
+  travelMapSection.style.display = "none";
+}
+
+if (travelBookSection) {
+  travelBookSection.style.display = "none";
+}
 
       backToGalleryButton.style.display = "none";
 
