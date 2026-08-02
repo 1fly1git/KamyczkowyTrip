@@ -922,6 +922,7 @@ if (ratingInfo) {
   }
 }
       currentStoneCode = data.stone_code;
+      loadMyStoneRating();
       loadTravelHistory();
 loadStatistics();
 loadTravelMap();
