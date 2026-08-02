@@ -1256,7 +1256,42 @@ async function loadRanking() {
     });
 }
 
+async function saveStoneRating(rating) {
 
+  if (!window.supabaseClient) {
+    return;
+  }
+
+  const { data: existingRating } =
+    await window.supabaseClient
+      .from("stone_ratings")
+      .select("id")
+      .eq("stone_code", currentStoneCode)
+      .eq("voter_id", voterId)
+      .maybeSingle();
+
+  if (existingRating) {
+
+    await window.supabaseClient
+      .from("stone_ratings")
+      .update({
+        rating: rating
+      })
+      .eq("id", existingRating.id);
+
+  } else {
+
+    await window.supabaseClient
+      .from("stone_ratings")
+      .insert({
+        stone_code: currentStoneCode,
+        rating: rating,
+        voter_id: voterId
+      });
+
+  }
+
+}
 
 setTimeout(function () {
   loadRanking();
