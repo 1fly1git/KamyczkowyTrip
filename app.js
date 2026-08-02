@@ -1760,9 +1760,15 @@ async function loadStoneGallery() {
             </div>
 
             <div class="gallery-rating">
-              ⭐ ${average.toFixed(2)}
-              (${count} ocen)
-            </div>
+  ⭐ ${average.toFixed(2)}
+  (${
+    count === 1
+      ? "1 ocena"
+      : count >= 2 && count <= 4
+      ? `${count} oceny`
+      : `${count} ocen`
+  })
+</div>
 
             <div class="gallery-stats">
               📏 ${stone.total_distance || 0} km
