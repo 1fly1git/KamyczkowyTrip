@@ -516,10 +516,16 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
 .passport-photo-wrapper{
     position:relative;
     display:inline-block;
+    width:140px;
+    height:140px;
 }
 
 .passport-photo-wrapper img{
+    width:140px;
+    height:140px;
+    object-fit:cover;
     display:block;
+    border-radius:50%;
     cursor:zoom-in;
 }
 
