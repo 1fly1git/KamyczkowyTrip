@@ -407,7 +407,7 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
 
 .gallery-photo{
     width:100%;
-    height:140px;
+    height:100px;
     overflow:hidden;
     background:#f3f3f3;
 }
@@ -425,7 +425,7 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
 }
 
 .gallery-name{
-    font-size:17px;
+    font-size:15px;
     font-weight:bold;
     margin-bottom:8px;
 }
