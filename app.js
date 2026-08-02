@@ -1651,7 +1651,165 @@ if (ratingRankingButton) {
     }
   );
 }
+async function loadStoneGallery() {
+  const galleryList =
+    document.getElementById("galleryList");
 
+  if (!galleryList || !window.supabaseClient) {
+    return;
+  }
+
+  galleryList.innerHTML =
+    "Ładowanie galerii...";
+
+  const { data, error } =
+    await window.supabaseClient
+      .from("stones")
+      .select(`
+        stone_name,
+        stone_code,
+        creator_name,
+        thumbnail_url,
+        rating_average,
+        rating_count,
+        total_distance,
+        places_count
+      `)
+      .eq("status", true)
+      .eq("moderation_status", "approved")
+      .order("approved_at", {
+        ascending: false
+      })
+      .limit(12);
+
+  if (error) {
+    console.error(
+      "Błąd pobierania galerii:",
+      error
+    );
+
+    galleryList.innerHTML =
+      "Nie udało się pobrać galerii.";
+
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    galleryList.innerHTML =
+      "Brak kamyczków w galerii.";
+
+    return;
+  }
+
+  galleryList.innerHTML = data
+    .map(function (stone) {
+      const average =
+        Number(stone.rating_average || 0);
+
+      const count =
+        Number(stone.rating_count || 0);
+
+      return `
+        <button
+          type="button"
+          class="gallery-item"
+          data-stone-code="${escapeHtml(
+            stone.stone_code || ""
+          )}"
+        >
+          <div class="gallery-photo">
+            ${
+              stone.thumbnail_url
+                ? `
+                  <img
+                    src="${escapeHtml(
+                      stone.thumbnail_url
+                    )}"
+                    alt="Zdjęcie kamyczka"
+                    loading="lazy"
+                  >
+                `
+                : `<span>🪨</span>`
+            }
+          </div>
+
+          <div class="gallery-content">
+            <div class="gallery-name">
+              ${escapeHtml(
+                stone.stone_name || "Bez nazwy"
+              )}
+            </div>
+
+            <div class="gallery-author">
+              Autor:
+              ${escapeHtml(
+                stone.creator_name || "Nieznany"
+              )}
+            </div>
+
+            <div class="gallery-rating">
+              ⭐ ${average.toFixed(2)}
+              (${count} ocen)
+            </div>
+
+            <div class="gallery-stats">
+              📏 ${stone.total_distance || 0} km
+              · 📍 ${stone.places_count || 0} miejsc
+            </div>
+          </div>
+        </button>
+      `;
+    })
+    .join("");
+
+  galleryList
+    .querySelectorAll(".gallery-item")
+    .forEach(function (item) {
+      item.addEventListener(
+        "click",
+        function () {
+          const stoneCode =
+            item.dataset.stoneCode;
+
+          if (!stoneCode) {
+            return;
+          }
+
+          const searchInput =
+            document.getElementById(
+              "stoneSearchCode"
+            );
+
+          const searchButton =
+            document.getElementById(
+              "searchStoneButton"
+            );
+
+          if (searchInput) {
+            searchInput.value = stoneCode;
+          }
+
+          if (searchButton) {
+            searchButton.click();
+          }
+
+          setTimeout(function () {
+            const passportCard =
+              document.getElementById(
+                "stonePassportCard"
+              );
+
+            if (passportCard) {
+              passportCard.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
+            }
+          }, 500);
+        }
+      );
+    });
+}
 const showGalleryButton =
   document.getElementById("showGalleryButton");
 
