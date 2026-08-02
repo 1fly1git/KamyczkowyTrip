@@ -1355,13 +1355,17 @@ async function loadMyStoneRating() {
 
   const savedRating = Number(data.rating);
 
-  ratingStars.forEach(function (star) {
-    if (
-      Number(star.dataset.rating) <= savedRating
-    ) {
-      star.classList.add("active");
-    }
-  });
+ratingStars.forEach(function (star) {
+  const starValue = Number(star.dataset.rating);
+
+  if (starValue <= savedRating) {
+    star.classList.add("active");
+    star.textContent = "★";
+  } else {
+    star.classList.remove("active");
+    star.textContent = "☆";
+  }
+});
 }
 const ratingStars =
   document.querySelectorAll(
