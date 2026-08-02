@@ -8,16 +8,44 @@ let currentLocation = {
 let currentStoneCode = "KT-000001";
 let currentTravelMap = null;
 
-let voterId =
-  localStorage.getItem("voterId");
+let voterId = null;
+let deviceFingerprint = null;
 
-if (!voterId) {
-  voterId = crypto.randomUUID();
-  localStorage.setItem(
-    "voterId",
-    voterId
-  );
+async function initializeVotingIdentity() {
+  try {
+    const fingerprintAgent =
+      await FingerprintJS.load();
+
+    const fingerprintResult =
+      await fingerprintAgent.get();
+
+    deviceFingerprint =
+      fingerprintResult.visitorId;
+
+    voterId = deviceFingerprint;
+  } catch (error) {
+    console.error(
+      "Nie udało się utworzyć fingerprintu:",
+      error
+    );
+
+    voterId =
+      localStorage.getItem("voterId");
+
+    if (!voterId) {
+      voterId = crypto.randomUUID();
+
+      localStorage.setItem(
+        "voterId",
+        voterId
+      );
+    }
+
+    deviceFingerprint = voterId;
+  }
 }
+
+initializeVotingIdentity();
 
 function showMessage(text) {
   const message = document.getElementById("message");
