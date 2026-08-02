@@ -975,8 +975,15 @@ loadStatistics();
 loadTravelMap();
 
 if (data.photo_url) {
-    document.getElementById("passportStonePhoto").innerHTML =
-        `<img src="${data.photo_url}" style="width:140px;height:140px;border-radius:50%;object-fit:cover;">`;
+    document.getElementById("passportStonePhoto").innerHTML = `
+  <div class="passport-photo-wrapper">
+    <img
+      src="${data.photo_url}"
+      alt="Zdjęcie kamyczka"
+    >
+    <span class="passport-photo-zoom">🔍</span>
+  </div>
+`;
 } else {
     document.getElementById("passportStonePhoto").textContent = "🪨";
 }
