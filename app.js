@@ -1165,6 +1165,19 @@ async function loadRanking() {
           class="ranking-item"
           data-stone-code="${escapeHtml(stone.stone_code || "")}"
         >
+        <div class="ranking-photo">
+  ${
+    stone.thumbnail_url
+      ? `
+        <img
+          src="${escapeHtml(stone.thumbnail_url)}"
+          alt="Miniatura kamyczka"
+          loading="lazy"
+        >
+      `
+      : `<span>🪨</span>`
+  }
+</div>
           <div class="ranking-position">
             ${position}
           </div>
