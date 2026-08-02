@@ -1132,6 +1132,7 @@ async function loadRanking() {
     .select(`
       stone_name,
       stone_code,
+      thumbnail_url,
       total_distance,
       places_count,
       finders_count,
