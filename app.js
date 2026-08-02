@@ -1651,3 +1651,25 @@ if (ratingRankingButton) {
     }
   );
 }
+
+const showGalleryButton =
+  document.getElementById("showGalleryButton");
+
+const stoneGallery =
+  document.getElementById("stoneGallery");
+
+if (showGalleryButton && stoneGallery) {
+  showGalleryButton.addEventListener(
+    "click",
+    async function () {
+      stoneGallery.style.display = "block";
+
+      await loadStoneGallery();
+
+      stoneGallery.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  );
+}
