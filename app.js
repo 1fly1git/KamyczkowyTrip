@@ -8,6 +8,16 @@ let currentLocation = {
 let currentStoneCode = "KT-000001";
 let currentTravelMap = null;
 
+let voterId =
+  localStorage.getItem("voterId");
+
+if (!voterId) {
+  voterId = crypto.randomUUID();
+  localStorage.setItem(
+    "voterId",
+    voterId
+  );
+}
 
 function showMessage(text) {
   const message = document.getElementById("message");
