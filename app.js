@@ -1738,13 +1738,22 @@ async function loadStoneGallery(loadMore = false) {
   }
 
   if (!data || data.length === 0) {
-    galleryList.innerHTML =
-      "Brak kamyczków w galerii.";
+  const loadMoreButton =
+    document.getElementById("loadMoreGalleryButton");
 
-    return;
+  if (loadMoreButton) {
+    loadMoreButton.style.display = "none";
   }
 
-  galleryList.innerHTML = data
+  if (!loadMore) {
+    galleryList.innerHTML =
+      "Brak kamyczków w galerii.";
+  }
+
+  return;
+  }
+
+  const galleryHtml = data
     .map(function (stone) {
       const average =
         Number(stone.rating_average || 0);
