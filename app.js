@@ -980,7 +980,27 @@ if (data.photo_url) {
 } else {
     document.getElementById("passportStonePhoto").textContent = "🪨";
 }
+const passportImage =
+  document.querySelector("#passportStonePhoto img");
 
+if (passportImage) {
+  passportImage.style.cursor = "zoom-in";
+
+  passportImage.onclick = function () {
+    const viewer =
+      document.getElementById("imageViewer");
+
+    const fullImage =
+      document.getElementById("fullImage");
+
+    if (!viewer || !fullImage) {
+      return;
+    }
+
+    fullImage.src = passportImage.src;
+    viewer.style.display = "flex";
+  };
+}
       console.log("Znaleziony kamyczek:", data);
     } catch (error) {
       console.error("Błąd wyszukiwania paszportu:", error);
