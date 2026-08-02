@@ -544,3 +544,30 @@ box-shadow:0 4px 14px rgba(0,0,0,.12);
     pointer-events:none;
     font-size:18px;
 }
+#passportStonePhoto .passport-photo-wrapper {
+    position: relative !important;
+    display: inline-block !important;
+    width: 140px !important;
+    height: 140px !important;
+    max-width: 140px !important;
+    overflow: hidden !important;
+    border-radius: 50% !important;
+}
+
+#passportStonePhoto .passport-photo-wrapper img {
+    width: 140px !important;
+    height: 140px !important;
+    max-width: 140px !important;
+    max-height: 140px !important;
+    object-fit: cover !important;
+    display: block !important;
+    border-radius: 50% !important;
+    cursor: zoom-in;
+}
+
+#passportStonePhoto .passport-photo-zoom {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    z-index: 2;
+}
