@@ -1290,7 +1290,178 @@ async function loadRanking() {
       });
     });
 }
+async function loadBeautyRanking() {
+  const ranking =
+    document.getElementById("rankingList");
 
+  if (!ranking || !window.supabaseClient) {
+    return;
+  }
+
+  ranking.innerHTML =
+    "Ładowanie rankingu wyglądu...";
+
+  const { data, error } =
+    await window.supabaseClient
+      .from("stones")
+      .select(`
+        stone_name,
+        stone_code,
+        thumbnail_url,
+        rating_average,
+        rating_count
+      `)
+      .eq("status", true)
+      .eq("moderation_status", "approved")
+      .gte("rating_count", 3)
+      .order("rating_average", {
+        ascending: false
+      })
+      .order("rating_count", {
+        ascending: false
+      })
+      .limit(10);
+
+  if (error) {
+    console.error(
+      "Błąd rankingu wyglądu:",
+      error
+    );
+
+    ranking.innerHTML =
+      "Nie udało się pobrać rankingu wyglądu.";
+
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    ranking.innerHTML =
+      "Żaden kamyczek nie ma jeszcze minimum 3 ocen.";
+
+    return;
+  }
+
+  ranking.innerHTML = data
+    .map(function (stone, index) {
+      const medals = ["🥇", "🥈", "🥉"];
+
+      const position =
+        medals[index] || `${index + 1}.`;
+
+      const average =
+        Number(stone.rating_average || 0);
+
+      const count =
+        Number(stone.rating_count || 0);
+
+      return `
+        <button
+          type="button"
+          class="ranking-item"
+          data-stone-code="${escapeHtml(
+            stone.stone_code || ""
+          )}"
+        >
+          <div class="ranking-photo">
+            ${
+              stone.thumbnail_url
+                ? `
+                  <img
+                    src="${escapeHtml(
+                      stone.thumbnail_url
+                    )}"
+                    alt="Miniatura kamyczka"
+                    loading="lazy"
+                  >
+                `
+                : `<span>🪨</span>`
+            }
+          </div>
+
+          <div class="ranking-position">
+            ${position}
+          </div>
+
+          <div class="ranking-content">
+            <div class="ranking-name">
+              ${escapeHtml(
+                stone.stone_name || "Bez nazwy"
+              )}
+            </div>
+
+            <div class="ranking-code">
+              ${escapeHtml(
+                stone.stone_code || ""
+              )}
+            </div>
+
+            <div class="ranking-stats">
+              <span>
+                ⭐ ${average.toFixed(2)} / 5
+              </span>
+
+              <span>
+                🗳️ ${count} ocen
+              </span>
+            </div>
+          </div>
+
+          <div class="ranking-arrow">
+            ›
+          </div>
+        </button>
+      `;
+    })
+    .join("");
+
+  ranking
+    .querySelectorAll(".ranking-item")
+    .forEach(function (item) {
+      item.addEventListener(
+        "click",
+        function () {
+          const stoneCode =
+            item.dataset.stoneCode;
+
+          if (!stoneCode) {
+            return;
+          }
+
+          const searchInput =
+            document.getElementById(
+              "stoneSearchCode"
+            );
+
+          const searchButton =
+            document.getElementById(
+              "searchStoneButton"
+            );
+
+          if (searchInput) {
+            searchInput.value = stoneCode;
+          }
+
+          if (searchButton) {
+            searchButton.click();
+          }
+
+          setTimeout(function () {
+            const passportCard =
+              document.getElementById(
+                "stonePassportCard"
+              );
+
+            if (passportCard) {
+              passportCard.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
+            }
+          }, 500);
+        }
+      );
+    });
+}
 async function saveStoneRating(rating) {
 
   if (!window.supabaseClient) {
