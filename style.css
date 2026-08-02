@@ -379,3 +379,72 @@ footer {
     margin-top: 8px;
     margin-bottom: 16px;
 }
+
+/* ===== GALERIA KAMYCZKÓW ===== */
+
+#galleryList{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.gallery-item{
+    border:1px solid #ddd;
+    border-radius:18px;
+    overflow:hidden;
+    background:#fff;
+    cursor:pointer;
+    transition:.2s;
+    padding:0;
+}
+
+.gallery-item:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+}
+
+.gallery-photo{
+    width:100%;
+    height:220px;
+    overflow:hidden;
+    background:#f3f3f3;
+}
+
+.gallery-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.gallery-content{
+    padding:15px;
+    text-align:center;
+}
+
+.gallery-name{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.gallery-author{
+    color:#666;
+    margin-bottom:8px;
+}
+
+.gallery-rating,
+.gallery-stats{
+    margin-bottom:6px;
+}
+
+.gallery-open{
+    margin-top:12px;
+    display:inline-block;
+    background:#2f8f4e;
+    color:#fff;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:bold;
+}
