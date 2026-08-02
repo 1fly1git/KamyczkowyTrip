@@ -1683,9 +1683,9 @@ async function loadStoneGallery() {
       `)
       .eq("status", true)
       .eq("moderation_status", "approved")
-      .order("approved_at", {
-        ascending: false
-      })
+      .order("created_at", {
+  ascending: false
+})
       .limit(12);
 
   if (error) {
