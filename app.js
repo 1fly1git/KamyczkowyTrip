@@ -898,6 +898,8 @@ document.getElementById("mapStoneName").textContent =
   data.stone_name || "kamyczka";
 document.getElementById("passportStoneCode").textContent =
     data.stone_code || "";
+      document.getElementById("passportOwnerName").textContent =
+    data.creator_name || "Nieznany";
 
 document.getElementById("passportStoneStory").textContent =
     data.story || "Ten kamyczek nie ma jeszcze historii.";
