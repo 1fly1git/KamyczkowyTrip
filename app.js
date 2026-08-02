@@ -1721,7 +1721,7 @@ async function loadStoneGallery() {
       .order("created_at", {
   ascending: false
 })
-      .limit(9);
+      .range(galleryOffset, galleryOffset + galleryLimit - 1);
 
   if (error) {
     console.error(
