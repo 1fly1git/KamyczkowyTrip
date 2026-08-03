@@ -1223,10 +1223,23 @@ async function submitNewStone() {
   } catch (error) {
     console.error("Błąd zgłoszenia kamyczka:", error);
 
-    showSubmitMessage(
-      "Nie udało się wysłać zgłoszenia.\n" +
-      (error.message || "Nieznany błąd")
-    );
+    const errorText = String(error?.message || "");
+
+if (
+  errorText.includes("INVALID_SECURITY_CODE") ||
+  errorText.includes("row-level security")
+) {
+  showMessage(
+    "❌ Zgłoszenie nie zostało przyjęte.\n\n" +
+    "Kod zabezpieczający jest nieprawidłowy. " +
+    "Sprawdź trzyznakowy kod znajdujący się na kamyczku."
+  );
+} else {
+  showMessage(
+    "Nie udało się zapisać zgłoszenia. " +
+    "Spróbuj ponownie za chwilę."
+  );
+}
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
