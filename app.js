@@ -362,6 +362,7 @@ if (!isSecurityCodeValid) {
 
     document.getElementById("finderName").value = "";
     document.getElementById("comment").value = "";
+    document.getElementById("securityCode").value = "";
     document.getElementById("findingPhoto").value = "";
     document.getElementById("findForm").style.display =
       "none";
