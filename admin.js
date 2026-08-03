@@ -639,6 +639,8 @@ async function approveStone(id) {
   try {
     const stoneCode =
       await generateUniqueStoneCode();
+    const securityCode =
+  generateSecurityCode();
 
     const { data: sessionData } =
       await window.supabaseClient.auth.getSession();
