@@ -281,7 +281,27 @@ if (!/^[A-HJ-NP-Z2-9]{3}$/.test(securityCode)) {
   showMessage("Zapisuję zgłoszenie…");
 
   try {
-    
+    const {
+  data: isSecurityCodeValid,
+  error: securityCodeError
+} = await window.supabaseClient.rpc(
+  "verify_stone_security_code",
+  {
+    p_stone_code: currentStoneCode,
+    p_security_code: securityCode
+  }
+);
+
+if (securityCodeError) {
+  throw securityCodeError;
+}
+
+if (!isSecurityCodeValid) {
+  showMessage(
+    "❌ Nieprawidłowy kod zabezpieczający. Sprawdź kod z tyłu kamyczka."
+  );
+  return;
+}
     if (photoFile) {
       
       const formData = new FormData();
