@@ -336,24 +336,32 @@ if (!isSecurityCodeValid) {
       thumbnailUrl = uploadResult.thumbnail_url;
     }
 
-    const { error } = await window.supabaseClient
-      .from("sightings")
-      .insert({
-        stone_code: currentStoneCode,
-        finder_name: finderName || "Anonimowy podróżnik",
-        latitude: currentLocation.latitude,
-        longitude: currentLocation.longitude,
-        place_name: editedPlaceName || currentLocation.placeName,
-        comment: comment || null,
-        photo_url: photoUrl,
-        thumbnail_url: thumbnailUrl,
-        location_accuracy: currentLocation.accuracy,
-        moderation_status: "pending"
-      });
-
-    if (error) {
-      throw error;
+    const { error } = await window.supabaseClient.rpc(
+    "submit_stone_finding",
+    {
+        p_stone_code: currentStoneCode,
+        p_security_code: securityCode,
+        p_finder_name: finderName || "",
+        p_latitude: currentLocation.latitude,
+        p_longitude: currentLocation.longitude,
+        p_place_name: editedPlaceName || currentLocation.placeName || "",
+        p_comment: comment || "",
+        p_photo_url: photoUrl || "",
+        p_thumbnail_url: thumbnailUrl || "",
+        p_location_accuracy: currentLocation.accuracy
     }
+);
+
+if (error) {
+    if (error.message.includes("INVALID_SECURITY_CODE")) {
+        showMessage(
+            "❌ Nieprawidłowy kod zabezpieczający. Sprawdź kod z tyłu kamyczka."
+        );
+        return;
+    }
+
+    throw error;
+}
 
     showMessage(
       "❤️ Dziękujemy!\n\n" +
