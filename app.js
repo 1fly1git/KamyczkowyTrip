@@ -251,7 +251,18 @@ const editedPlaceName = document
   .getElementById("placeName")
   .value
   .trim();
-  
+  const securityCode = (
+  document.getElementById("securityCode")?.value || ""
+)
+  .trim()
+  .toUpperCase();
+
+if (!/^[A-HJ-NP-Z2-9]{3}$/.test(securityCode)) {
+  showMessage(
+    "Wpisz prawidłowy 3-znakowy kod zabezpieczający z kamyczka."
+  );
+  return;
+}
   const photoFile = document
     .getElementById("findingPhoto")
     .files[0] || null;
