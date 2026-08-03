@@ -364,9 +364,14 @@ if (error) {
 }
 
     showMessage(
-      "❤️ Dziękujemy!\n\n" +
-      "Zgłoszenie znalezienia kamyczka zostało zapisane."
-    );
+  "❤️ Dziękujemy!\n\n" +
+  "Twoje zgłoszenie zostało zapisane i oczekuje " +
+  "na weryfikację moderatora.\n\n" +
+  "Po zatwierdzeniu nowy etap podróży kamyczka " +
+  "pojawi się na mapie oraz w Księdze Podróżników.\n\n" +
+  "Dziękujemy, że wspólnie z nami tworzysz historię " +
+  "KamyczkowyTrip! 🌍🪨"
+);
 
     document.getElementById("finderName").value = "";
     document.getElementById("comment").value = "";
