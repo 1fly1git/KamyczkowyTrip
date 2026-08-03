@@ -653,7 +653,8 @@ async function approveStone(id) {
         .from("stones")
         .update({
           stone_code: stoneCode,
-          moderation_status: "approved",
+security_code: securityCode,
+moderation_status: "approved",
           status: true,
           approved_at: new Date().toISOString(),
           approved_by: moderatorEmail
