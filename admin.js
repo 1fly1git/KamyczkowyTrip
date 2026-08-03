@@ -285,7 +285,21 @@ function generateStoneCode() {
 
   return code;
 }
+function generateSecurityCode() {
+  const characters =
+    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
+  let code = "";
+
+  for (let index = 0; index < 3; index++) {
+    const randomIndex =
+      Math.floor(Math.random() * characters.length);
+
+    code += characters[randomIndex];
+  }
+
+  return code;
+}
 async function generateUniqueStoneCode() {
   for (let attempt = 0; attempt < 20; attempt++) {
     const code = generateStoneCode();
