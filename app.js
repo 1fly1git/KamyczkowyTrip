@@ -1161,13 +1161,12 @@ async function submitNewStone() {
   showSubmitMessage("Wysyłam zgłoszenie…");
 
   try {
-    const temporaryUploadCode =
-      "pending_" + Date.now();
+    
 
     const formData = new FormData();
 
     formData.append("photo", stonePhoto);
-    formData.append("stone_code", temporaryUploadCode);
+    
 
     const uploadResponse = await fetch(
       "https://kamyczkowytrip.pl/upload.php",
