@@ -1058,6 +1058,17 @@ if (passportImage) {
     viewer.style.display = "flex";
   };
 }
+      const passportCard =
+  document.getElementById("stonePassportCard");
+
+if (passportCard) {
+  setTimeout(function () {
+    passportCard.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 150);
+}
       console.log("Znaleziony kamyczek:", data);
     } catch (error) {
       console.error("Błąd wyszukiwania paszportu:", error);
