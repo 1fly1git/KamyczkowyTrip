@@ -959,7 +959,7 @@ if (searchButton) {
       }
 
       message.textContent =
-        "✅ Znaleziono paszport: " + data.stone_name;
+        "✅ Znaleziono paszport kamyczka: " + data.stone_code;
       document.getElementById("stonePassportCard").style.display = "block";
 document.getElementById("travelMapSection").style.display = "block";
 document.getElementById("travelBookSection").style.display = "block";
