@@ -1233,13 +1233,13 @@ if (
   errorText.includes("INVALID_SECURITY_CODE") ||
   errorText.includes("row-level security")
 ) {
-  showMessage(
+  showSubmitMessage(
     "❌ Zgłoszenie nie zostało przyjęte.\n\n" +
     "Kod zabezpieczający jest nieprawidłowy. " +
     "Sprawdź trzyznakowy kod znajdujący się na kamyczku."
   );
 } else {
-  showMessage(
+  showSubmitMessage(
     "Nie udało się zapisać zgłoszenia. " +
     "Spróbuj ponownie za chwilę."
   );
