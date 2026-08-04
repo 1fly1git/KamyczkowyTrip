@@ -1062,12 +1062,19 @@ if (passportImage) {
   document.getElementById("stonePassportCard");
 
 if (passportCard) {
+  passportCard.style.display = "block";
+
   setTimeout(function () {
-    passportCard.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+    const passportPosition =
+      passportCard.getBoundingClientRect().top +
+      window.pageYOffset -
+      20;
+
+    window.scrollTo({
+      top: passportPosition,
+      behavior: "smooth"
     });
-  }, 150);
+  }, 500);
 }
       console.log("Znaleziony kamyczek:", data);
     } catch (error) {
