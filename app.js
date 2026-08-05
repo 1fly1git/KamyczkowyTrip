@@ -2109,7 +2109,25 @@ async function recoverAuthorIdentifier() {
 
   message.textContent = "⏳ Szukanie identyfikatora...";
 
-  // tutaj za chwilę dodamy Supabase
+const { data, error } = await window.supabaseClient
+    .from("stone_authors")
+    .select("author_identifier")
+    .eq("email", email)
+    .maybeSingle();
+
+if (error) {
+    message.textContent = "❌ Wystąpił błąd.";
+    return;
+}
+
+if (!data) {
+    message.textContent =
+        "❌ Nie znaleziono autora z takim adresem e-mail.";
+    return;
+}
+
+message.textContent =
+    "✅ Znaleziono identyfikator. Za chwilę wyślemy go e-mailem.";
 }
 async function loadMyStones() {
 
