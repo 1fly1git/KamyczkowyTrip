@@ -2106,14 +2106,26 @@ async function recoverAuthorIdentifier() {
     message.textContent = "✖ Wpisz adres e-mail.";
     return;
   }
+message.textContent = "⌛ Szukanie identyfikatora...";
 
-  message.textContent = "⏳ Szukanie identyfikatora...";
+const response = await fetch("recover-author-identifier.php", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "email=" + encodeURIComponent(email)
+});
 
+const result = await response.json();
 
+if (!result.success) {
+    message.textContent = "❌ " + result.message;
+    return;
+}
 
 message.textContent =
-    "✅ Znaleziono identyfikator. Za chwilę wyślemy go e-mailem.";
-}
+    "✅ Połączenie z serwerem działa. E-mail: " + result.email;
+  
 async function loadMyStones() {
 
     const authorIdentifier =
