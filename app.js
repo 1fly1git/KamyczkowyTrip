@@ -2193,9 +2193,27 @@ list.innerHTML = data.map(stone => {
             <span style="font-size:22px;color:#777777;">›</span>
         </button>
     `;
-}).join("");
+2196 }).join("");
+
+document.querySelectorAll(".my-stone-row")
+    .forEach(function(row) {
+
+        row.addEventListener("click", function() {
+
+            const code = row.dataset.stoneCode;
+
+            document.getElementById("stoneSearchCode").value = code;
+
+            document
+                .getElementById("searchStoneButton")
+                .click();
+
+        });
+
+    });
+
 }
-const imageViewer =
+2198 const imageViewer =
   document.getElementById("imageViewer");
 
 const closeImageViewer =
