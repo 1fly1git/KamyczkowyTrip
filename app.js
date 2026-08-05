@@ -2070,6 +2070,15 @@ if (loadMyStonesButton) {
         loadMyStones();
     });
 }
+const sendIdentifierButton =
+  document.getElementById("sendIdentifierButton");
+
+if (sendIdentifierButton) {
+  sendIdentifierButton.addEventListener(
+    "click",
+    recoverAuthorIdentifier
+  );
+}
 async function recoverAuthorIdentifier() {
   const emailInput = document.getElementById("recoverIdentifierEmail");
   const message = document.getElementById("recoverIdentifierMessage");
