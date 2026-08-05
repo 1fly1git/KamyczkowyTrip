@@ -2091,7 +2091,7 @@ list.style.display = "block";
 list.innerHTML = "⏳ Ładowanie...";
   const { data, error } = await window.supabaseClient
     .from("stones")
-    .select("stone_code, stone_name")
+    .select("stone_code, stone_name, thumbnail_url, photo_url")
     .eq("author_identifier", authorIdentifier)
     .order("created_at", { ascending: false });
 
