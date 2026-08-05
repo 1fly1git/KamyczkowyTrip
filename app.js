@@ -2105,12 +2105,95 @@ if (!data.length) {
     return;
 }
 
-list.innerHTML = data.map(stone => `
-    <div class="my-stone-row">
-        <strong>${stone.stone_name}</strong><br>
-        ${stone.stone_code}
-    </div>
-`).join("");
+list.innerHTML = data.map(stone => {
+    const imageUrl =
+        stone.thumbnail_url ||
+        stone.photo_url ||
+        "";
+
+    const imageHtml = imageUrl
+        ? `
+            <img
+                src="${imageUrl}"
+                alt=""
+                style="
+                    width:40px;
+                    height:40px;
+                    object-fit:cover;
+                    border-radius:8px;
+                    flex-shrink:0;
+                "
+            >
+        `
+        : `
+            <div
+                style="
+                    width:40px;
+                    height:40px;
+                    border-radius:8px;
+                    background:#eeeeee;
+                    flex-shrink:0;
+                "
+            ></div>
+        `;
+
+    return `
+        <button
+            type="button"
+            class="my-stone-row"
+            data-stone-code="${stone.stone_code}"
+            style="
+                width:100%;
+                min-height:52px;
+                display:flex;
+                align-items:center;
+                gap:10px;
+                padding:6px 8px;
+                margin:0 0 6px;
+                border:1px solid #dddddd;
+                border-radius:10px;
+                background:#ffffff;
+                color:#222222;
+                text-align:left;
+                box-sizing:border-box;
+            "
+        >
+            ${imageHtml}
+
+            <span
+                style="
+                    flex:1;
+                    min-width:0;
+                "
+            >
+                <strong
+                    style="
+                        display:block;
+                        white-space:nowrap;
+                        overflow:hidden;
+                        text-overflow:ellipsis;
+                    "
+                >
+                    ${stone.stone_name || "Bez nazwy"}
+                </strong>
+
+                <span
+                    style="
+                        display:block;
+                        margin-top:2px;
+                        font-size:13px;
+                        color:#666666;
+                        letter-spacing:1px;
+                    "
+                >
+                    ${stone.stone_code || ""}
+                </span>
+            </span>
+
+            <span style="font-size:22px;color:#777777;">›</span>
+        </button>
+    `;
+}).join("");
 }
 const imageViewer =
   document.getElementById("imageViewer");
