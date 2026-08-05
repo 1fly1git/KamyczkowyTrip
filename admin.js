@@ -669,8 +669,9 @@ moderation_status: "approved",
     {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
-        },
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + sessionData.session.access_token
+},
         body: JSON.stringify({
             stone_id: id,
             stone_code: stoneCode
