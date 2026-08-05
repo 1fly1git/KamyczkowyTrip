@@ -2089,6 +2089,28 @@ const list =
 
 list.style.display = "block";
 list.innerHTML = "⏳ Ładowanie...";
+  const { data, error } = await window.supabaseClient
+    .from("stones")
+    .select("stone_code, stone_name")
+    .eq("author_identifier", authorIdentifier)
+    .order("created_at", { ascending: false });
+
+if (error) {
+    list.innerHTML = "❌ Błąd pobierania.";
+    return;
+}
+
+if (!data.length) {
+    list.innerHTML = "Brak kamyczków.";
+    return;
+}
+
+list.innerHTML = data.map(stone => `
+    <div class="my-stone-row">
+        <strong>${stone.stone_name}</strong><br>
+        ${stone.stone_code}
+    </div>
+`).join("");
 }
 const imageViewer =
   document.getElementById("imageViewer");
