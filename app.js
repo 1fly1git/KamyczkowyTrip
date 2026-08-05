@@ -2070,6 +2070,23 @@ if (loadMyStonesButton) {
         loadMyStones();
     });
 }
+async function recoverAuthorIdentifier() {
+  const emailInput = document.getElementById("recoverIdentifierEmail");
+  const message = document.getElementById("recoverIdentifierMessage");
+
+  const email = emailInput.value.trim().toLowerCase();
+
+  message.style.display = "block";
+
+  if (!email) {
+    message.textContent = "✖ Wpisz adres e-mail.";
+    return;
+  }
+
+  message.textContent = "⏳ Szukanie identyfikatora...";
+
+  // tutaj za chwilę dodamy Supabase
+}
 async function loadMyStones() {
 
     const authorIdentifier =
