@@ -2070,7 +2070,7 @@ async function loadMyStones() {
         return;
     }
 
-    console.log(data);
+    alert("Znaleziono " + data.length + " kamyczków.");
 }
 const imageViewer =
   document.getElementById("imageViewer");
