@@ -2062,6 +2062,14 @@ if (showMyStonesButton) {
     });
 
 }
+const loadMyStonesButton =
+    document.getElementById("loadMyStonesButton");
+
+if (loadMyStonesButton) {
+    loadMyStonesButton.addEventListener("click", function () {
+        loadMyStones();
+    });
+}
 async function loadMyStones() {
 
     const authorIdentifier =
