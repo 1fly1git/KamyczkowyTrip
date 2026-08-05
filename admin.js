@@ -664,6 +664,28 @@ moderation_status: "approved",
     if (error) {
       throw error;
     }
+    const renameResponse = await fetch(
+    "https://kamyczkowytrip.pl/rename-stone-folder.php",
+    {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            stone_id: id,
+            stone_code: stoneCode
+        })
+    }
+);
+
+const renameResult = await renameResponse.json();
+
+if (!renameResponse.ok || !renameResult.success) {
+    throw new Error(
+        renameResult.message ||
+        "Nie udało się zmienić nazwy katalogu zdjęć."
+    );
+}
 const emailResponse = await fetch(
   "https://kamyczkowytrip.pl/send-passport-email.php",
   {
