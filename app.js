@@ -2044,7 +2044,7 @@ const showMyStonesButton =
 
 if (showMyStonesButton) {
     showMyStonesButton.addEventListener("click", function () {
-        alert("Przycisk działa");
+        loadMyStones();
     });
 }
 async function loadMyStones() {
