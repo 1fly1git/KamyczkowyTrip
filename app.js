@@ -2193,7 +2193,7 @@ list.innerHTML = data.map(stone => {
             <span style="font-size:22px;color:#777777;">›</span>
         </button>
     `;
-2196 }).join("");
+}).join("");
 
 document.querySelectorAll(".my-stone-row")
     .forEach(function(row) {
@@ -2213,7 +2213,7 @@ document.querySelectorAll(".my-stone-row")
     });
 
 }
-2198 const imageViewer =
+const imageViewer =
   document.getElementById("imageViewer");
 
 const closeImageViewer =
