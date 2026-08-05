@@ -2047,6 +2047,31 @@ if (showMyStonesButton) {
         alert("Przycisk działa");
     });
 }
+async function loadMyStones() {
+
+    const authorIdentifier =
+        localStorage.getItem("authorIdentifier");
+
+    if (!authorIdentifier) {
+        alert("Nie znaleziono identyfikatora autora.");
+        return;
+    }
+
+    const { data, error } =
+        await window.supabaseClient
+            .from("stones")
+            .select("stone_code, stone_name")
+            .eq("author_identifier", authorIdentifier)
+            .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error(error);
+        alert("Nie udało się pobrać kamyczków.");
+        return;
+    }
+
+    console.log(data);
+}
 const imageViewer =
   document.getElementById("imageViewer");
 
