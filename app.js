@@ -2042,10 +2042,25 @@ if (travelBookSection) {
 const showMyStonesButton =
     document.getElementById("showMyStonesButton");
 
+const myStonesForm =
+    document.getElementById("myStonesForm");
+
 if (showMyStonesButton) {
+
     showMyStonesButton.addEventListener("click", function () {
-        loadMyStones();
+
+        if (myStonesForm.style.display === "none") {
+
+            myStonesForm.style.display = "block";
+
+        } else {
+
+            myStonesForm.style.display = "none";
+
+        }
+
     });
+
 }
 async function loadMyStones() {
 
