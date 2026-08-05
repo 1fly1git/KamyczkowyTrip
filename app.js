@@ -2065,27 +2065,22 @@ if (showMyStonesButton) {
 async function loadMyStones() {
 
     const authorIdentifier =
-        localStorage.getItem("authorIdentifier");
+    document
+        .getElementById("authorIdentifierInput")
+        .value
+        .trim()
+        .toUpperCase();
 
-    if (!authorIdentifier) {
-        alert("Nie znaleziono identyfikatora autora.");
-        return;
-    }
+if (!authorIdentifier) {
+    alert("Wpisz identyfikator autora.");
+    return;
+}
 
-    const { data, error } =
-        await window.supabaseClient
-            .from("stones")
-            .select("stone_code, stone_name")
-            .eq("author_identifier", authorIdentifier)
-            .order("created_at", { ascending: false });
+const list =
+    document.getElementById("myStonesList");
 
-    if (error) {
-        console.error(error);
-        alert("Nie udało się pobrać kamyczków.");
-        return;
-    }
-
-    alert("Znaleziono " + data.length + " kamyczków.");
+list.style.display = "block";
+list.innerHTML = "⏳ Ładowanie...";
 }
 const imageViewer =
   document.getElementById("imageViewer");
