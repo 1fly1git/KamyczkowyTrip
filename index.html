@@ -414,6 +414,63 @@ defer
 >
     🔍 Pokaż
 </button>
+    <button
+    id="showRecoverIdentifierButton"
+    type="button"
+    style="
+        margin-top:12px;
+        padding:0;
+        border:none;
+        background:none;
+        color:#25834f;
+        font-size:14px;
+        text-decoration:underline;
+        cursor:pointer;
+    "
+>
+    Nie pamiętasz identyfikatora?
+</button>
+
+<div
+    id="recoverIdentifierForm"
+    style="
+        display:none;
+        margin-top:14px;
+    "
+>
+    <div style="margin-bottom:8px;font-size:14px;color:#616161;">
+        Wpisz adres e-mail użyty podczas dodawania kamyczków.
+    </div>
+
+    <input
+        id="recoverIdentifierEmail"
+        type="email"
+        placeholder="twoj@email.pl"
+        autocomplete="email"
+        style="
+            width:100%;
+            box-sizing:border-box;
+            margin-bottom:12px;
+        "
+    >
+
+    <button
+        id="sendIdentifierButton"
+        class="button"
+        type="button"
+    >
+        Wyślij identyfikator
+    </button>
+
+    <div
+        id="recoverIdentifierMessage"
+        style="
+            display:none;
+            margin-top:12px;
+            font-size:14px;
+        "
+    ></div>
+</div>
   </div>
 </section>
     <section
