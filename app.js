@@ -2039,7 +2039,14 @@ if (travelBookSection) {
     }
   );
 });
+const showMyStonesButton =
+    document.getElementById("showMyStonesButton");
 
+if (showMyStonesButton) {
+    showMyStonesButton.addEventListener("click", function () {
+        alert("Przycisk działa");
+    });
+}
 const imageViewer =
   document.getElementById("imageViewer");
 
