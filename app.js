@@ -2125,7 +2125,7 @@ if (!result.success) {
 
 message.textContent =
     "✅ Połączenie z serwerem działa. E-mail: " + result.email;
-  
+}
 async function loadMyStones() {
 
     const authorIdentifier =
