@@ -2070,6 +2070,21 @@ if (loadMyStonesButton) {
         loadMyStones();
     });
 }
+const showRecoverIdentifierButton =
+    document.getElementById("showRecoverIdentifierButton");
+
+const recoverIdentifierForm =
+    document.getElementById("recoverIdentifierForm");
+
+if (showRecoverIdentifierButton && recoverIdentifierForm) {
+    showRecoverIdentifierButton.addEventListener("click", function () {
+        if (recoverIdentifierForm.style.display === "none") {
+            recoverIdentifierForm.style.display = "block";
+        } else {
+            recoverIdentifierForm.style.display = "none";
+        }
+    });
+}
 const sendIdentifierButton =
   document.getElementById("sendIdentifierButton");
 
