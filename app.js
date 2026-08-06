@@ -2108,7 +2108,7 @@ async function recoverAuthorIdentifier() {
   }
 message.textContent = "⌛ Szukanie identyfikatora...";
 
-const response = await fetch("recover-author-identifier.php", {
+const response = await fetch("https://kamyczkowytrip.pl/recover-author-identifier.php", {
     method: "POST",
     headers: {
         "Content-Type": "application/x-www-form-urlencoded"
