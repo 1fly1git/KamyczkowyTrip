@@ -2127,8 +2127,7 @@ try {
         return;
     }
 
-    message.textContent =
-        "✅ Połączenie z serwerem działa. E-mail: " + result.email;
+    message.textContent = "✅ " + result.message;
 
 } catch (error) {
     console.error(error);
