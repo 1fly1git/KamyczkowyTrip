@@ -2108,23 +2108,32 @@ async function recoverAuthorIdentifier() {
   }
 message.textContent = "⌛ Szukanie identyfikatora...";
 
-const response = await fetch("https://kamyczkowytrip.pl/recover-author-identifier.php", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: "email=" + encodeURIComponent(email)
-});
+try {
+    const response = await fetch(
+        "https://kamyczkowytrip.pl/recover-author-identifier.php",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "email=" + encodeURIComponent(email)
+        }
+    );
 
-const result = await response.json();
+    const result = await response.json();
 
-if (!result.success) {
-    message.textContent = "❌ " + result.message;
-    return;
+    if (!result.success) {
+        message.textContent = "❌ " + result.message;
+        return;
+    }
+
+    message.textContent =
+        "✅ Połączenie z serwerem działa. E-mail: " + result.email;
+
+} catch (error) {
+    console.error(error);
+    message.textContent = "❌ Nie udało się połączyć z serwerem.";
 }
-
-message.textContent =
-    "✅ Połączenie z serwerem działa. E-mail: " + result.email;
 }
 async function loadMyStones() {
 
